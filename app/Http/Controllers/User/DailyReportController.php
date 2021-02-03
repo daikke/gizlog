@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\DailyReportRequest;
 use Illuminate\View\View;
 
 class DailyReportController extends Controller
@@ -19,7 +20,7 @@ class DailyReportController extends Controller
         return view('user.daily_report.create');
     }
 
-    public function store()
+    public function store(DailyReportRequest $request)
     {
 
     }
