@@ -4,10 +4,17 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class DailyReportController extends Controller
 {
-    public function create()
+
+    /**
+     * 新規作成画面表示
+     *
+     * @return View
+     */
+    public function create(): View
     {
         return view('user.daily_report.create');
     }
