@@ -4,7 +4,7 @@
 <h2 class="brand-header">日報作成</h2>
 <div class="main-wrap">
   <div class="container">
-    <form>
+      {!! Form::open(['route' => 'report.create']) !!}
       <div class="form-group form-size-small has-error">
         <input type="date" class="form-control">
         <span class="help-block"></span>
@@ -18,7 +18,7 @@
         <span class="help-block"></span>
       </div>
       <button type="submit" class="btn btn-success pull-right">Add</button>
-    </form>
+    {!! Form::close() !!}
   </div>
 </div>
 
