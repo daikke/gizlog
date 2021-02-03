@@ -7,5 +7,8 @@ use App\Http\Controllers\Controller;
 
 class DailyReportController extends Controller
 {
-    //
+    public function create()
+    {
+
+    }
 }

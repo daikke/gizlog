@@ -23,6 +23,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('slack/login', 'Auth\AuthenticateController@callSlackApi');
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+    Route::get('report/create', 'DailyReportController@create')->name('report.create');
 });
 
 // 管理者側画面
