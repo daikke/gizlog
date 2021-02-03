@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\DailyReportRequest;
 use App\Models\DailyReport;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -17,6 +18,10 @@ class DailyReportController extends Controller
     public function __construct(DailyReport $dailyReport)
     {
         $this->dailyReport = $dailyReport;
+    }
+
+    public function index()
+    {
     }
 
     /**
@@ -33,13 +38,13 @@ class DailyReportController extends Controller
      * 日報登録
      *
      * @param DailyReportRequest $request
-     * @return void
+     * @return RedirectResponse
      */
-    public function store(DailyReportRequest $request)
+    public function store(DailyReportRequest $request): RedirectResponse
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
         $this->dailyReport->fill($inputs)->save();
-        redirect(route('report.index'));
+        return redirect()->route('report.index');
     }
 }
