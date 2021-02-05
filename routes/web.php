@@ -26,7 +26,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::get('report', 'DailyReportController@index')->name('report.index');
     Route::get('report/create', 'DailyReportController@create')->name('report.create');
-    Route::post('report/create', 'DailyReportController@store')->name('report.store');
+    Route::post('report', 'DailyReportController@store')->name('report.store');
 });
 
 // 管理者側画面

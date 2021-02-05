@@ -4,7 +4,7 @@
 <h2 class="brand-header">日報作成</h2>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => 'report.create']) !!}
+    {!! Form::open(['route' => 'report.store']) !!}
       <div class="form-group form-size-small @if ($errors->has('reporting_time')) has-error @endif">
         {!! Form::date('reporting_time', '', ['class' => 'form-control']) !!}
         @foreach ($errors->get('reporting_time') as $error)
