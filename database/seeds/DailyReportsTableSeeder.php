@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DailyReport;
 use Illuminate\Database\Seeder;
 
 class DailyReportsTableSeeder extends Seeder
@@ -12,6 +13,6 @@ class DailyReportsTableSeeder extends Seeder
     public function run()
     {
         DB::table('daily_reports')->truncate();
-        factory(App\Models\DailyReport::class, 10)->create();
+        factory(DailyReport::class, 10)->create();
     }
 }
