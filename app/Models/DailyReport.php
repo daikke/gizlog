@@ -10,6 +10,5 @@ class DailyReport extends Model
         'reporting_time',
         'title',
         'contents',
-        'user_id',
     ];
 }

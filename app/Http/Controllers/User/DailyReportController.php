@@ -43,7 +43,7 @@ class DailyReportController extends Controller
     public function store(DailyReportRequest $request): RedirectResponse
     {
         $inputs = $request->all();
-        $inputs['user_id'] = Auth::id();
+        $this->dailyReport->user_id = Auth::id();
         $this->dailyReport->fill($inputs)->save();
         return redirect()->route('report.index');
     }
