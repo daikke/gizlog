@@ -7,27 +7,27 @@
     {!! Form::open(['route' => 'report.create']) !!}
       <div class="form-group form-size-small @if ($errors->has('reporting_time')) has-error @endif">
         {!! Form::date('reporting_time', '', ['class' => 'form-control']) !!}
-        <span class="help-block">
-          @foreach ($errors->get('reporting_time') as $error)
+        @foreach ($errors->get('reporting_time') as $error)
+          <span class="help-block">
             {{ $error }}
-          @endforeach
-        </span>
+          </span>
+        @endforeach
       </div>
       <div class="form-group @if ($errors->has('title')) has-error @endif">
         {!! Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title']) !!}
-        <span class="help-block">
-          @foreach ($errors->get('title') as $error)
+        @foreach ($errors->get('title') as $error)
+          <span class="help-block">
             {{ $error }}
-          @endforeach
-        </span>
+          </span>
+        @endforeach
       </div>
       <div class="form-group @if ($errors->has('contents')) has-error @endif">
         {!! Form::textarea('contents', '', ['class' => 'form-control', 'placeholder' => 'Content']) !!}
-        <span class="help-block">
-          @foreach ($errors->get('contents') as $error)
+        @foreach ($errors->get('contents') as $error)
+          <span class="help-block">
             {{ $error }}
-          @endforeach
-        </span>
+          </span>
+        @endforeach
       </div>
       <button type="submit" class="btn btn-success pull-right">Add</button>
     {!! Form::close() !!}
