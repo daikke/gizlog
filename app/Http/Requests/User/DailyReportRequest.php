@@ -42,9 +42,9 @@ class DailyReportRequest extends FormRequest
             'reporting_time.required'        => '入力必須の項目です。',
             'reporting_time.before_or_equal' => '今日以前の日付を選択してください。',
             'title.required'                 => '入力必須の項目です。',
-            'title.max'                      => '255文字以内で入力してください。',
+            'title.max'                      => ':max文字以内で入力してください。',
             'contents.required'              => '入力必須の項目です。',
-            'contents.max'                   => '1000文字以内で入力してください。',
+            'contents.max'                   => ':max文字以内で入力してください。',
         ];
     }
 }
