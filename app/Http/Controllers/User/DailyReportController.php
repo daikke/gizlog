@@ -48,4 +48,15 @@ class DailyReportController extends Controller
         $this->dailyReport->fill($inputs)->save();
         return redirect()->route('report.index');
     }
+
+    /**
+     * 日報詳細
+     *
+     * @param integer $id
+     * @return View
+     */
+    public function show(int $id): View
+    {
+        return view('user.daily_report.show');
+    }
 }
