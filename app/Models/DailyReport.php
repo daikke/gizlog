@@ -11,4 +11,8 @@ class DailyReport extends Model
         'title',
         'contents',
     ];
+
+    protected $dates = [
+        'reporting_time',
+    ];
 }
