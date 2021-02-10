@@ -5,17 +5,29 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => ['report.update', $report->id], 'method' => 'PUT']) !!}
-      <div class="form-group form-size-small has-error">
+      <div class="form-group form-size-small @if ($errors->has('reporting_time')) has-error @endif">
         {!! Form::date('reporting_time', $report->reporting_time, ['class' => 'form-control']) !!}
-        <span class="help-block"></span>
+        @foreach ($errors->get('reporting_time') as $error)
+          <span class="help-block">
+            {{ $error }}
+          </span>
+        @endforeach
       </div>
-      <div class="form-group has-error">
+      <div class="form-group @if ($errors->has('title')) has-error @endif">
         {!! Form::text('title', $report->title, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
-        <span class="help-block"></span>
+        @foreach ($errors->get('title') as $error)
+          <span class="help-block">
+            {{ $error }}
+          </span>
+        @endforeach
       </div>
-      <div class="form-group has-error">
+      <div class="form-group @if ($errors->has('contents')) has-error @endif">
         {!! Form::textarea('contents', $report->contents, ['class' => 'form-control', 'placeholder' => 'Content']) !!}
-        <span class="help-block"></span>
+        @foreach ($errors->get('contents') as $error)
+          <span class="help-block">
+            {{ $error }}
+          </span>
+        @endforeach
       </div>
       <button type="submit" class="btn btn-success pull-right">Update</button>
     {!! Form::close() !!}
