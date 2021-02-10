@@ -14,7 +14,7 @@ class DailyReportRequest extends FormRequest
     public function authorize()
     {
         // falseの場合、403ステータスコードを返却する
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,9 @@ class DailyReportRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'reporting_time' => 'required|before_or_equal:today',
+            'title'          => 'required|max:255',
+            'contents'       => 'required|max:1000',
         ];
     }
 
@@ -37,7 +39,12 @@ class DailyReportRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'reporting_time.required'        => '入力必須の項目です。',
+            'reporting_time.before_or_equal' => '今日以前の日付を選択してください。',
+            'title.required'                 => '入力必須の項目です。',
+            'title.max'                      => ':max文字以内で入力してください。',
+            'contents.required'              => '入力必須の項目です。',
+            'contents.max'                   => ':max文字以内で入力してください。',
         ];
     }
 }
