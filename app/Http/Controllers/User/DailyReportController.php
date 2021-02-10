@@ -73,9 +73,29 @@ class DailyReportController extends Controller
         return redirect()->route('report.index');
     }
 
+    /**
+     * 編集画面表示
+     *
+     * @param integer $id
+     * @return View
+     */
     public function edit(int $id): View
     {
         $report = $this->dailyReport->find($id);
         return view('user.daily_report.edit', compact('report'));
+    }
+
+    /**
+     * 更新
+     *
+     * @param DailyReportRequest $request
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function update(DailyReportRequest $request, int $id): RedirectResponse
+    {
+        $input = $request->all();
+        $this->dailyReport->find($id)->fill($input)->save();
+        return redirect()->route('report.index');
     }
 }

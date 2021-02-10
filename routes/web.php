@@ -31,6 +31,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         Route::get('{id}', 'DailyReportController@show')->name('show');
         Route::delete('{id}', 'DailyReportController@delete')->name('delete');
         Route::get('{id}/edit', 'DailyReportController@edit')->name('edit');
+        Route::put('{id}', 'DailyReportController@update')->name('update');
     });
 });
 
