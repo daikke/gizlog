@@ -72,4 +72,10 @@ class DailyReportController extends Controller
         $this->dailyReport->find($id)->delete();
         return redirect()->route('report.index');
     }
+
+    public function edit(int $id): View
+    {
+        $report = $this->dailyReport->find($id);
+        return view('user.daily_report.edit', compact('report'));
+    }
 }
