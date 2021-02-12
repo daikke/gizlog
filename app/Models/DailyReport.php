@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class DailyReport extends Model
 {
@@ -19,4 +20,19 @@ class DailyReport extends Model
         'reporting_time',
         'deleted_at',
     ];
+
+    /**
+     * 日報取得
+     *
+     * @param Array $params
+     * @return Collection
+     */
+    public function fetchReports(Array $params): Collection
+    {
+        $builder = $this
+            ->when(isset($params['user_id']), function($query) use ($params) {
+                $query->where('user_id', $params['user_id']);
+            });
+        return $builder->get();
+    }
 }
