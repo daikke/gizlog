@@ -5,10 +5,10 @@
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
     {{--  TODO 日報検索機能  --}}
-    <form>
-      <input type="text" class="form-control">
+    {!! Form::open(['route' => 'report.index', 'method' => 'GET']) !!}
+      {!! Form::month('reporting_time', request()->get('reporting_time'), ['class' => 'form-control']) !!}
       <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
-    </form>
+    {!! Form::close() !!}
     <a class="btn btn-icon" href=""><i class="fa fa-plus"></i></a>
   </div>
   <div class="content-wrapper table-responsive">

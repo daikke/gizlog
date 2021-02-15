@@ -38,6 +38,11 @@ class DailyReport extends Model
                     $query->where('user_id', $params['user_id']);
                 }
             )
+            ->when(isset($params['reporting_time']),
+                function($query) use ($params) {
+                    $query->whereDate('reporting_time', 'LIKE', $params['reporting_time'] . '%');
+                }
+            )
             ->when(isset($params['order']) && isset($params['order_type']),
                 function($query) use ($params) {
                     $query->orderBy($params['order'], $params['order_type']);
