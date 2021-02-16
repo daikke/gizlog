@@ -32,7 +32,7 @@
         @endforeach
       </tbody>
     </table>
-  {{ $reports->links() }}
+  {{ $reports->appends(request()->query())->links() }}
   </div>
 </div>
 
