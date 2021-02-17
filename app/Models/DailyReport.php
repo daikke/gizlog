@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 class DailyReport extends Model
 {
     use SoftDeletes;
+
 
     const DEFAULT_ORDER = 'reporting_time';
     const DEFAULT_ORDER_TYPE = 'desc';
@@ -60,7 +63,14 @@ class DailyReport extends Model
             ->where('user_id', $userId)
             ->when(isset($params['reporting_time']),
                 function($query) use ($params) {
-                    $query->whereDate('reporting_time', 'LIKE', $params['reporting_time'] . '%');
+                    $reportingTime = new Carbon($params['reporting_time']);
+                    $query->whereBetween(
+                        'reporting_time',
+                        [
+                            $reportingTime->firstOfMonth()->format('Y-m-d H:i:s'),
+                            $reportingTime->lastOfMonth()->format('Y-m-d H:i:s')
+                        ]
+                    );
                 }
             )
             ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
