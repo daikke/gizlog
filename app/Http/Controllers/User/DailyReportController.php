@@ -48,4 +48,28 @@ class DailyReportController extends Controller
         $this->dailyReport->fill($inputs)->save();
         return redirect()->route('report.index');
     }
+
+    /**
+     * 日報詳細
+     *
+     * @param integer $id
+     * @return View
+     */
+    public function show(int $id): View
+    {
+        $report = $this->dailyReport->find($id);
+        return view('user.daily_report.show', compact('report'));
+    }
+
+    /**
+     * 削除
+     *
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function delete(int $id): RedirectResponse
+    {
+        $this->dailyReport->find($id)->delete();
+        return redirect()->route('report.index');
+    }
 }

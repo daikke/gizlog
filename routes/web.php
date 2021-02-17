@@ -24,9 +24,16 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::get('report', 'DailyReportController@index')->name('report.index');
-    Route::get('report/create', 'DailyReportController@create')->name('report.create');
-    Route::post('report', 'DailyReportController@store')->name('report.store');
+    Route::group(['prefix' => 'report', 'as' => 'report.', 'middleware' => 'auth'], function() {
+        Route::get('/', 'DailyReportController@index')->name('index');
+        Route::get('create', 'DailyReportController@create')->name('create');
+        Route::post('/', 'DailyReportController@store')->name('store');
+        Route::get('{id}', 'DailyReportController@show')->name('show');
+        Route::delete('{id}', 'DailyReportController@delete')->name('delete');
+        Route::get('{id}/edit', function() {
+            return;
+        })->name('edit');
+    });
 });
 
 // 管理者側画面
