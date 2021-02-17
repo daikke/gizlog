@@ -24,33 +24,23 @@ class DailyReport extends Model
     ];
 
     /**
-     * 日報取得(ページング)
+     * ユーザーの日報一覧を取得
      *
-     * @param Array $params
+     * @param integer $userId
+     * @param array $params
      * @param integer $pagesize
      * @return LengthAwarePaginator
      */
-    public function fetchReports(array $params, int $pagesize = 10): LengthAwarePaginator
+    public function fetchUserReports(int $userId, array $params = [], int $pagesize = 10): LengthAwarePaginator
     {
-        $builder = $this
-            ->when(isset($params['user_id']),
-                function($query) use ($params) {
-                    $query->where('user_id', $params['user_id']);
-                }
-            )
+        return $this
+            ->where('user_id', $userId)
             ->when(isset($params['reporting_time']),
                 function($query) use ($params) {
                     $query->whereDate('reporting_time', 'LIKE', $params['reporting_time'] . '%');
                 }
             )
-            ->when(isset($params['order']) && isset($params['order_type']),
-                function($query) use ($params) {
-                    $query->orderBy($params['order'], $params['order_type']);
-                },
-                function($query) {
-                    $query->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE);
-                }
-            );
-        return $builder->paginate($pagesize);
+            ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
+            ->paginate($pagesize);
     }
 }
