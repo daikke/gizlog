@@ -44,7 +44,7 @@
         <img src="" class="avatar-img"><p>コメントを投稿する</p>
       </div>
       <div class="comment-body">
-        <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea>
+        <textarea class="form-control" placeholder="Add your comment..." name="content" cols="50" rows="10"></textarea>
         <span class="help-block"></span>
       </div>
       <div class="comment-bottom">
