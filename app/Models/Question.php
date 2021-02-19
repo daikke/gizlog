@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
@@ -42,6 +43,17 @@ class Question extends Model
     public function comments(): HasMany
     {
         return $this->hasMany('App\Models\Comment');
+    }
+
+    /**
+     * タイトルアクセサ（30文字区切り）
+     *
+     * @param string $title
+     * @return string
+     */
+    public function getTitleAttribute(string $title): string
+    {
+        return Str::limit($title, 30);
     }
 
     /**
