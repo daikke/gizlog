@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\QuestionsRequest;
 use App\Models\Question;
 use App\Models\TagCategory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class QuestionController extends Controller
@@ -52,5 +54,16 @@ class QuestionController extends Controller
     {
         $tagCategories = TagCategory::pluck('name', 'id');
         return view('user.question.create', compact('tagCategories'));
+    }
+
+    /**
+     * 質問作成
+     *
+     * @param QuestionsRequest $request
+     * @return RedirectResponse
+     */
+    public function store(QuestionsRequest $request): RedirectResponse
+    {
+        return redirect()->route('question.index');
     }
 }

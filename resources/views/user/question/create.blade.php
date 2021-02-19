@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'question.store', 'method' => 'POST']) !!}
-      <div class="form-group">
+      <div class="form-group @if($errors->has('tag_category_id')) has-error @endif">
         {!!
           Form::select(
             'tag_category_id',
@@ -14,15 +14,21 @@
             ['placeholder' => 'Select category', 'class' => 'form-control selectpicker form-size-small']
           );
         !!}
-        <span class="help-block"></span>
+        @foreach ($errors->get('tag_category_id') as $error)
+          <span class="help-block">{{ $error }}</span>
+        @endforeach
       </div>
-      <div class="form-group">
+      <div class="form-group @if($errors->has('title')) has-error @endif">
         {!! Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'title']) !!}
-        <span class="help-block"></span>
+        @foreach ($errors->get('title') as $error)
+          <span class="help-block">{{ $error }}</span>
+        @endforeach
       </div>
-      <div class="form-group">
+      <div class="form-group @if ($errors->has('content')) has-error @endif">
         {!! Form::textarea('content', '', ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
-        <span class="help-block"></span>
+        @foreach ($errors->get('content') as $error)
+          <span class="help-block">{{ $error }}</span>
+        @endforeach
       </div>
       <input name="confirm" class="btn btn-success pull-right" type="submit" value="create">
     {!! Form::close() !!}
