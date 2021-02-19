@@ -37,7 +37,7 @@
       @endforeach
     </div>
   <div class="comment-box">
-    <form>
+    {!! Form::open(['route' => 'comment.store', 'method' => 'POST']) !!}
       <input name="user_id" type="hidden" value="{{ Auth::id() }}">
       <input name="question_id" type="hidden" value="{{ $question->id }}">
       <div class="comment-title">
@@ -52,7 +52,7 @@
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
       </div>
-    </form>
+    {!! Form::close() !!}
   </div>
 </div>
 @endsection
