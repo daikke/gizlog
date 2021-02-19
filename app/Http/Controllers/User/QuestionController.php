@@ -42,4 +42,15 @@ class QuestionController extends Controller
         $question = $this->question->find($id);
         return view('user.question.show', compact('question'));
     }
+
+    /**
+     * 作成画面
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        $tagCategories = TagCategory::all();
+        return view('user.question.create', compact('tagCategories'));
+    }
 }

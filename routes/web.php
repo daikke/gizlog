@@ -37,8 +37,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
         Route::group(['prefix' => 'question', 'as' => 'question.'], function() {
             Route::get('/', 'QuestionController@index')->name('index');
+            Route::get('/create', 'QuestionController@create')->name('create');
             Route::get('/{id}', 'QuestionController@show')->name('show');
-            Route::post('/create', 'QuestionController@create')->name('create');
         });
 
         Route::group(['prefix' => 'comment', 'as' => 'comment.'], function() {
