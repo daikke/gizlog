@@ -20,11 +20,13 @@ class QuestionController extends Controller
     /**
      * 一覧表示
      *
+     * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $questions = $this->question->all();
+        $input = $request->all();
+        $questions = $this->question->fetchAll($input);
         $tagCategories = TagCategory::all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
