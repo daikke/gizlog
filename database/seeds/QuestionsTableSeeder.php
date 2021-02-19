@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Question;
 use Illuminate\Database\Seeder;
 
 class QuestionsTableSeeder extends Seeder
@@ -11,6 +12,7 @@ class QuestionsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('questions')->truncate();
+        factory(Question::class, 10)->create();
     }
 }
