@@ -49,7 +49,7 @@
         @endforeach
       </tbody>
     </table>
-    <div aria-label="Page navigation example" class="text-center"></div>
+    {{ $questions->appends(request()->query())->links() }}
   </div>
 </div>
 
