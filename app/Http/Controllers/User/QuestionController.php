@@ -30,4 +30,16 @@ class QuestionController extends Controller
         $tagCategories = TagCategory::all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
+
+    /**
+     * 詳細表示
+     *
+     * @param integer $id
+     * @return View
+     */
+    public function show(int $id): View
+    {
+        $question = $this->question->find($id);
+        return view('user.question.show', compact('question'));
+    }
 }
