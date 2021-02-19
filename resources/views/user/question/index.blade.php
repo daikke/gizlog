@@ -3,7 +3,7 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  <form id="question-search-form">
+  {!! Form::open(['route' => 'question.index', 'method' => 'GET', 'id' => 'question-search-form']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
         <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text" value={{ request()->get('search_word') }}>
@@ -21,7 +21,7 @@
       @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="{{ request()->get('tag_category_id') }}">
     </div>
-  </form>
+  {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
