@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ nl2br($question->content) }}</td>
+            <td class='td-text'>{!! nl2br($question->content) !!}</td>
           </tr>
         </tbody>
       </table>
@@ -32,7 +32,7 @@
             <p>{{ $comment->title }}</p>
             <p class="comment-date">{{ $comment->created_at }}</p>
           </div>
-          <div class="comment-body">{{ nl2br($comment->content) }}</div>
+          <div class="comment-body">{!! nl2br($comment->content) !!}</div>
         </div>
       @endforeach
     </div>
@@ -43,9 +43,11 @@
       <div class="comment-title">
         <img src="" class="avatar-img"><p>コメントを投稿する</p>
       </div>
-      <div class="comment-body">
-        <textarea class="form-control" placeholder="Add your comment..." name="content" cols="50" rows="10"></textarea>
-        <span class="help-block"></span>
+      <div class="comment-body @if ($errors->has('content')) has-error @endif">
+        {!! Form::textarea('content', '', ['class' => 'form-control', 'placeholder' => 'Add your comment...']) !!}
+        @foreach ($errors->get('content') as $error)
+          <span class="help-block">{{ $error }}</span>
+        @endforeach
       </div>
       <div class="comment-bottom">
         <button type="submit" class="btn btn-success">
