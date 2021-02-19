@@ -57,7 +57,7 @@ class DailyReport extends Model
      * @param integer $pagesize
      * @return LengthAwarePaginator
      */
-    public function fetchUserReports(int $userId, array $params = [], int $pagesize = 10): LengthAwarePaginator
+    public function fetchByUserId(int $userId, array $params = [], int $pagesize = 10): LengthAwarePaginator
     {
         return $this
             ->where('user_id', $userId)
