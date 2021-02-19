@@ -50,7 +50,7 @@ class QuestionController extends Controller
      */
     public function create(): View
     {
-        $tagCategories = TagCategory::all();
+        $tagCategories = TagCategory::pluck('name', 'id');
         return view('user.question.create', compact('tagCategories'));
     }
 }
