@@ -71,6 +71,11 @@ class Question extends Model
                     $query->where('tag_category_id', $params['tag_category_id']);
                 }
             )
+            ->when(isset($params['search_word']) && $params['search_word'] !== '',
+                function($query) use ($params) {
+                    $query->where('title', 'LIKE', "%{$params['search_word']}%");
+                }
+            )
             ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
             ->paginate($pagesize);
     }

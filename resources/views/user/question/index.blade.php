@@ -6,7 +6,7 @@
   <form id="question-search-form">
     <div class="btn-wrapper">
       <div class="search-box">
-        <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text">
+        <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text" value={{ request()->get('search_word') }}>
         <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
       </div>
       <a class="btn" href=""><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -19,7 +19,7 @@
       @foreach ($tagCategories as $tagCategory)
         <div class="btn {{ $tagCategory->name }}" id="{{ $tagCategory->id }}">{{ $tagCategory->name }}</div>
       @endforeach
-      <input id="category-val" name="tag_category_id" type="hidden" value="">
+      <input id="category-val" name="tag_category_id" type="hidden" value="{{ request()->get('tag_category_id') }}">
     </div>
   </form>
   <div class="content-wrapper table-responsive">
