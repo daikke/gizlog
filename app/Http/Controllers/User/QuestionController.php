@@ -8,6 +8,7 @@ use App\Http\Requests\User\QuestionsRequest;
 use App\Models\Question;
 use App\Models\TagCategory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class QuestionController extends Controller
@@ -64,6 +65,9 @@ class QuestionController extends Controller
      */
     public function store(QuestionsRequest $request): RedirectResponse
     {
+        $input = $request->all();
+        $this->question->user_id = Auth::id();
+        $this->question->fill($input)->save();
         return redirect()->route('question.index');
     }
 }

@@ -14,6 +14,12 @@ class Question extends Model
     const DEFAULT_ORDER_TYPE = 'desc';
 
     protected $perPage = 10;
+    protected $fillable = [
+        'content',
+        'title',
+        'tag_category_id',
+    ];
+
 
     /**
      * usersテーブルリレーション
