@@ -27,6 +27,8 @@ class DailyReport extends Model
         'deleted_at',
     ];
 
+    protected $perPage = 10;
+
     /**
      * タイトルアクセサ（30文字区切り）
      *
@@ -57,7 +59,7 @@ class DailyReport extends Model
      * @param integer $pagesize
      * @return LengthAwarePaginator
      */
-    public function fetchByUserId(int $userId, array $params = [], int $pagesize = 10): LengthAwarePaginator
+    public function fetchByUserId(int $userId, array $params = [], int $pagesize = Null): LengthAwarePaginator
     {
         return $this
             ->where('user_id', $userId)
