@@ -80,6 +80,6 @@ class QuestionController extends Controller
         $input = $request->all();
         $this->question->user_id = Auth::id();
         $this->question->fill($input)->save();
-        return redirect()->route('question.index');
+        return redirect()->route('question.mypage');
     }
 }
