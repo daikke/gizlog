@@ -21,8 +21,16 @@ class DailyReportController extends Controller
         $this->dailyReport = $dailyReport;
     }
 
-    public function index()
+    /**
+     * 日報一覧
+     *
+     * @return View
+     */
+    public function index(Request $request): View
     {
+        $params = $request->all();
+        $reports = $this->dailyReport->fetchByUserId(Auth::id(), $params);
+        return view('user.daily_report.index', compact('reports'));
     }
 
     /**
