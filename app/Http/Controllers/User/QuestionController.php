@@ -63,9 +63,9 @@ class QuestionController extends Controller
      */
     public function store(QuestionsRequest $request): RedirectResponse
     {
-        $input = $request->all();
+        $inputs = $request->all();
         $this->question->user_id = Auth::id();
-        $this->question->fill($input)->save();
+        $this->question->fill($inputs)->save();
         return redirect()->route('question.mypage');
     }
 }
