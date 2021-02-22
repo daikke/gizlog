@@ -26,8 +26,15 @@ class QuestionController extends Controller
         $this->question = $question;
     }
 
+    /**
+     * 編集画面表示
+     *
+     * @param integer $id
+     * @return View
+     */
     public function edit(int $id): View
     {
-        return view('user.question.edit');
+        $question = $this->question->find($id);
+        return view('user.question.edit', compact('question'));
     }
 }
