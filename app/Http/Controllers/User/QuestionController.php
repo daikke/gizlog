@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
@@ -23,5 +24,10 @@ class QuestionController extends Controller
     public function __construct(Question $question)
     {
         $this->question = $question;
+    }
+
+    public function edit(int $id): View
+    {
+        return view('user.question.edit');
     }
 }
