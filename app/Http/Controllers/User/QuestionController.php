@@ -57,9 +57,16 @@ class QuestionController extends Controller
         return view('user.question.create', compact('tagCategories'));
     }
 
-    public function confirm(): View
+    /**
+     * 確認画面表示
+     *
+     * @param QuestionsRequest $request
+     * @return View
+     */
+    public function confirm(QuestionsRequest $request): View
     {
-        return view('user.question.confirm');
+        $question = $request->all();
+        return view('user.question.confirm', compact('question'));
     }
 
     /**
