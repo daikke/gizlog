@@ -10,6 +10,26 @@ use Illuminate\Support\Str;
 
 class Question extends Model
 {
+
+    /**
+     * 並びカラム
+     * @var string
+     */
+    protected $order = 'created_at';
+
+    /**
+     * 並び順
+     * @var string
+     */
+    protected $orderType = 'desc';
+
+    /**
+     * ページネーション件数
+     *
+     * @var integer
+     */
+    protected $perPage = 10;
+
     protected $fillable = [
         'content',
         'title',
@@ -56,5 +76,19 @@ class Question extends Model
     public function getTitleAttribute(string $title): string
     {
         return Str::limit($title, 30);
+    }
+
+    /**
+     * ユーザーの質問取得
+     *
+     * @param integer $userId
+     * @return LengthAwarePaginator
+     */
+    public function fetchByUserId(int $userId): LengthAwarePaginator
+    {
+        return $this
+            ->where('user_id', $userId)
+            ->orderBy($this->order, $this->orderType)
+            ->paginate();
     }
 }

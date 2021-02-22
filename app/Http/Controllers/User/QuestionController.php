@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
@@ -25,8 +27,14 @@ class QuestionController extends Controller
        $this->question = $question;
    }
 
-   public function mypage()
+   /**
+    * マイページ表示
+    *
+    * @return View
+    */
+   public function mypage(): View
    {
-       return view('user.question.mypage');
+       $questions = $this->question->fetchByUserId(Auth::id());
+       return view('user.question.mypage', compact('questions'));
    }
 }
