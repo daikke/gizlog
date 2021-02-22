@@ -17,13 +17,13 @@ class Question extends Model
      * 並びカラム
      * @var string
      */
-    public $order = 'created_at';
+    protected $order = 'created_at';
 
     /**
      * 並び順
      * @var string
      */
-    public $orderType = 'desc';
+    protected $orderType = 'desc';
 
     /**
      * ページネーション件数
