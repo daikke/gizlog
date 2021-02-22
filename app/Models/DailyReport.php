@@ -16,15 +16,15 @@ class DailyReport extends Model
     use SoftDeletes;
 
     /**
-     * デフォルト並びカラム
+     * 並びカラム
      * @var string
      */
-    const DEFAULT_ORDER = 'reporting_time';
+    public $order = 'reporting_time';
 
     /**
-     * デフォルト並び順
+     * 並び順
      */
-    const DEFAULT_ORDER_TYPE = 'desc';
+    public $orderType = 'desc';
 
     /**
      * 複数代入ホワイトリスト
@@ -100,7 +100,7 @@ class DailyReport extends Model
                     );
                 }
             )
-            ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
+            ->orderBy($this->order, $this->orderBy)
             ->paginate($pagesize);
     }
 }

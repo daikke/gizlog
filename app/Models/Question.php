@@ -14,16 +14,16 @@ use Illuminate\Support\Str;
 class Question extends Model
 {
     /**
-     * デフォルト並びカラム
+     * 並びカラム
      * @var string
      */
-    const DEFAULT_ORDER = 'created_at';
+    public $order = 'created_at';
 
     /**
-     * デフォルト並び順
+     * 並び順
      * @var string
      */
-    const DEFAULT_ORDER_TYPE = 'desc';
+    public $orderType = 'desc';
 
     /**
      * ページネーション件数
@@ -93,7 +93,7 @@ class Question extends Model
                     $query->where('title', 'LIKE', "%{$params['search_word']}%");
                 }
             )
-            ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
+            ->orderBy($this->order, $this->orderBy)
             ->paginate($pagesize);
     }
 }
