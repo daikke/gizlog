@@ -89,7 +89,7 @@ class Question extends Model
             )
             ->when(isset($params['search_word']) && $params['search_word'] !== '',
                 function($query) use ($params) {
-                    $query->where('title', 'LIKE', "%{$params['search_word']}%");
+                    $query->where('title', 'LIKE', '%' . $params['search_word'] . '%');
                 }
             )
             ->orderBy($this->order, $this->orderBy)
