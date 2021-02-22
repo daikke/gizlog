@@ -55,7 +55,7 @@ class DailyReport extends Model
     protected $perPage = 10;
 
     /**
-     * タイトルアクセサ（30文字区切り）
+     * タイトルアクセサ
      *
      * @param string $title
      * @return string
@@ -66,7 +66,7 @@ class DailyReport extends Model
     }
 
     /**
-     * コンテンツアクセサ（50文字区切り）
+     * コンテンツアクセサ
      *
      * @param string $contents
      * @return string
