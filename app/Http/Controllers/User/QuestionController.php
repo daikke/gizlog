@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\TagCategory;
 use Illuminate\View\View;
 
 class QuestionController extends Controller
@@ -34,7 +35,8 @@ class QuestionController extends Controller
      */
     public function edit(int $id): View
     {
+        $tagCategories = TagCategory::all();
         $question = $this->question->find($id);
-        return view('user.question.edit', compact('question'));
+        return view('user.question.edit', compact('question', 'tagCategories'));
     }
 }
