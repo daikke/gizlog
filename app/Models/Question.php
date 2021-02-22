@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class Question extends Model
 {
+    use SoftDeletes;
 
     /**
      * 並びカラム
@@ -30,10 +32,24 @@ class Question extends Model
      */
     protected $perPage = 10;
 
+    /**
+     * 複数代入ホワイトリスト
+     *
+     * @var array
+     */
     protected $fillable = [
         'content',
         'title',
         'tag_category_id',
+    ];
+
+    /**
+     * 日付ミューてた
+     *
+     * @var array
+     */
+    protected $dates = [
+        'deleted_at'
     ];
 
 

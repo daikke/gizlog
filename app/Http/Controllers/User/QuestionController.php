@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -36,5 +37,17 @@ class QuestionController extends Controller
    {
        $questions = $this->question->fetchByUserId(Auth::id());
        return view('user.question.mypage', compact('questions'));
+   }
+
+   /**
+    * 削除
+    *
+    * @param integer $id
+    * @return RedirectResponse
+    */
+   public function destroy(int $id): RedirectResponse
+   {
+       $this->question->find($id)->delete();
+       return redirect()->route('question.mypage');
    }
 }
