@@ -9,6 +9,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * 質問を扱うコントローラークラス
+ */
 class QuestionController extends Controller
 {
     /**

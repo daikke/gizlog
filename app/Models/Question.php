@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
+/**
+ * questionsテーブルのモデルクラス
+ */
 class Question extends Model
 {
     use SoftDeletes;
@@ -44,14 +47,13 @@ class Question extends Model
     ];
 
     /**
-     * 日付ミューてた
+     * 日付ミューテタ
      *
      * @var array
      */
     protected $dates = [
         'deleted_at'
     ];
-
 
     /**
      * usersテーブルリレーション
