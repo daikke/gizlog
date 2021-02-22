@@ -35,7 +35,7 @@ class QuestionController extends Controller
      */
     public function edit(int $id): View
     {
-        $tagCategories = TagCategory::all();
+        $tagCategories = TagCategory::pluck('name', 'id');
         $question = $this->question->find($id);
         return view('user.question.edit', compact('question', 'tagCategories'));
     }
