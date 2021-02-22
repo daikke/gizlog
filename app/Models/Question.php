@@ -80,7 +80,7 @@ class Question extends Model
      * @param integer $pagesize
      * @return LengthAwarePaginator
      */
-    public function fetchAll(array $params, int $pagesize = NULL): LengthAwarePaginator
+    public function fetchByCondition(array $params, int $pagesize = NULL): LengthAwarePaginator
     {
         return $this
             ->when(!empty($params['tag_category_id']),

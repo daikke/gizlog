@@ -39,7 +39,7 @@ class QuestionController extends Controller
     public function index(Request $request): View
     {
         $inputs = $request->all();
-        $questions = $this->question->fetchAll($inputs);
+        $questions = $this->question->fetchByCondition($inputs);
         $tagCategories = TagCategory::all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
