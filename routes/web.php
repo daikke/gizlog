@@ -24,14 +24,27 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::group(['prefix' => 'report', 'as' => 'report.', 'middleware' => 'auth'], function() {
-        Route::get('/', 'DailyReportController@index')->name('index');
-        Route::get('create', 'DailyReportController@create')->name('create');
-        Route::post('/', 'DailyReportController@store')->name('store');
-        Route::get('{id}', 'DailyReportController@show')->name('show');
-        Route::delete('{id}', 'DailyReportController@delete')->name('delete');
-        Route::get('{id}/edit', 'DailyReportController@edit')->name('edit');
-        Route::put('{id}', 'DailyReportController@update')->name('update');
+    Route::group(['middleware' => 'auth'], function() {
+
+        Route::group(['prefix' => 'report', 'as' => 'report.'], function() {
+            Route::get('/', 'DailyReportController@index')->name('index');
+            Route::get('create', 'DailyReportController@create')->name('create');
+            Route::post('/', 'DailyReportController@store')->name('store');
+            Route::get('{id}', 'DailyReportController@show')->name('show');
+            Route::delete('{id}', 'DailyReportController@delete')->name('delete');
+            Route::get('{id}/edit', 'DailyReportController@edit')->name('edit');
+            Route::put('{id}', 'DailyReportController@update')->name('update');
+        });
+
+        Route::group(['prefix' => 'question', 'as' => 'question.'], function() {
+            Route::get('/', 'QuestionController@index')->name('index');
+            Route::get('/{id}', 'QuestionController@show')->name('show');
+            Route::post('/create', 'QuestionController@create')->name('create');
+        });
+
+        Route::group(['prefix' => 'comment', 'as' => 'comment.'], function() {
+            Route::post('/', 'CommentController@store')->name('store');
+        });
     });
 });
 
