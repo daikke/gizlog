@@ -38,8 +38,8 @@ class QuestionController extends Controller
      */
     public function index(Request $request): View
     {
-        $input = $request->all();
-        $questions = $this->question->fetchAll($input);
+        $inputs = $request->all();
+        $questions = $this->question->fetchAll($inputs);
         $tagCategories = TagCategory::all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
