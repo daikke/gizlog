@@ -86,7 +86,7 @@ class Question extends Model
     }
 
     /**
-     * タイトルアクセサ（30文字区切り）
+     * タイトルアクセサ
      *
      * @param string $title
      * @return string
