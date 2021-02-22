@@ -5,7 +5,7 @@
 
 <div class="main-wrap">
   <div class="container">
-    {{ Form::open(['route' => ['question.update', $question->id], 'method' => 'PUT']) }}
+    {{ Form::open(['route' => ['question.confirm', $question->id], 'method' => 'POST']) }}
       <div class="form-group">
         {!! Form::select('tag_category_id', $tagCategories, $question->tag_category_id, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
         <span class="help-block"></span>
