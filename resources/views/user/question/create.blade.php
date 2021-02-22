@@ -4,7 +4,7 @@
 <h2 class="brand-header">質問投稿</h2>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => 'question.store', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => 'question.confirm', 'method' => 'POST']) !!}
       <div class="form-group @if($errors->has('tag_category_id')) has-error @endif">
         {!!
           Form::select(

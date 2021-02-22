@@ -57,6 +57,11 @@ class QuestionController extends Controller
         return view('user.question.create', compact('tagCategories'));
     }
 
+    public function confirm(): View
+    {
+        return view('user.question.confirm');
+    }
+
     /**
      * 質問作成
      *
