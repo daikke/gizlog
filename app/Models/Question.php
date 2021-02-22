@@ -8,8 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
+/**
+ * questionsテーブルのモデルクラス
+ */
 class Question extends Model
 {
+    /**
+     * 複数代入のホワイトリスト
+     *
+     * @var array
+     */
     protected $fillable = [
         'content',
         'title',
@@ -48,7 +56,7 @@ class Question extends Model
     }
 
     /**
-     * タイトルアクセサ（30文字区切り）
+     * タイトルアクセサ
      *
      * @param string $title
      * @return string
