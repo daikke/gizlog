@@ -8,10 +8,23 @@ use App\Models\Question;
 use App\Models\TagCategory;
 use Illuminate\View\View;
 
+/**
+ * 質問を扱うコントローラークラス
+ */
 class QuestionController extends Controller
 {
+    /**
+     * Questionモデル
+     *
+     * @var Question
+     */
     private $question;
 
+    /**
+     * コンストラクタ
+     *
+     * @param Question $question
+     */
     public function __construct(Question $question)
     {
         $this->question = $question;

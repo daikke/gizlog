@@ -8,11 +8,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
+/**
+ * questionsテーブルのモデルクラス
+ */
 class Question extends Model
 {
+    /**
+     * デフォルト並びカラム
+     * @var string
+     */
     const DEFAULT_ORDER = 'created_at';
+
+    /**
+     * デフォルト並び順
+     * @var string
+     */
     const DEFAULT_ORDER_TYPE = 'desc';
 
+    /**
+     * ページネーション件数
+     *
+     * @var integer
+     */
     protected $perPage = 10;
 
     /**

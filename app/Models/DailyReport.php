@@ -8,25 +8,50 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+/**
+ * daily_reportsテーブルのModelクラス
+ */
 class DailyReport extends Model
 {
     use SoftDeletes;
 
-
+    /**
+     * デフォルト並びカラム
+     * @var string
+     */
     const DEFAULT_ORDER = 'reporting_time';
+
+    /**
+     * デフォルト並び順
+     */
     const DEFAULT_ORDER_TYPE = 'desc';
 
+    /**
+     * 複数代入ホワイトリスト
+     *
+     * @var array
+     */
     protected $fillable = [
         'reporting_time',
         'title',
         'contents',
     ];
 
+    /**
+     * 日付ミューテタ
+     *
+     * @var array
+     */
     protected $dates = [
         'reporting_time',
         'deleted_at',
     ];
 
+    /**
+     * ページネーション件数
+     *
+     * @var integer
+     */
     protected $perPage = 10;
 
     /**
