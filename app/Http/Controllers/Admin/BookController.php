@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BookCsvRequest;
 use App\Models\Book;
+use App\Services\CsvService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -30,5 +32,18 @@ class BookController extends Controller
     public function index(): View
     {
         return view('admin.book.index');
+    }
+
+    /**
+     * CSVからインポート
+     *
+     * @param BookCsvRequest $request
+     * @return void
+     */
+    public function csvBulkStore(BookCsvRequest $request)
+    {
+        $path = $request->file('csv')->path();
+        $csvService = new CsvService($path);
+        $this->book->insert($csvService->toArray());
     }
 }
