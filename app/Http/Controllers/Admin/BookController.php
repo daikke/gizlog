@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BookCsvRequest;
 use App\Models\Book;
 use App\Services\CsvService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -38,12 +39,13 @@ class BookController extends Controller
      * CSVからインポート
      *
      * @param BookCsvRequest $request
-     * @return void
+     * @return RedirectResponse
      */
-    public function csvBulkStore(BookCsvRequest $request)
+    public function csvBulkStore(BookCsvRequest $request):RedirectResponse
     {
         $path = $request->file('csv')->path();
         $csvService = new CsvService($path);
         $this->book->insert($csvService->toArray());
+        return redirect()->route('admin.book.index');
     }
 }
