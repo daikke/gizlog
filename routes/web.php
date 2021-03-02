@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::group(['prefix' => 'book', 'as' => 'book.', 'middleware' => 'auth:admin'], function() {
         Route::get('/', 'BookController@index')->name('index');
+        Route::post('/csv-bulk-store', 'BookController@csvBulkStore')->name('csv-bulk-store');
     });
     /*
      * ----------------------------------------------------------
