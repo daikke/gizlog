@@ -12,6 +12,10 @@ use Illuminate\View\View;
 
 class BookController extends Controller
 {
+    // デフォルト並び順
+    const DEFAULT_ORDER = 'created_at';
+    const DEFAULT_ORDER_TYPE = 'desc';
+
     // bookモデル
     private $book;
 
@@ -32,7 +36,8 @@ class BookController extends Controller
      */
     public function index(): View
     {
-        return view('admin.book.index');
+        $books = $this->book->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)->paginate();
+        return view('admin.book.index', compact('books'));
     }
 
     /**

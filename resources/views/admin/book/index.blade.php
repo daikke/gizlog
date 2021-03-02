@@ -29,16 +29,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row">
-          <td class="col-xs-1"><img src="" alt="" class="avatar-img"></td>
-          <td class="col-xs-4"></td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-1"></td>
-          <td class="col-xs-2"></td>
-        </tr>
+        @foreach ($books as $book)
+          <tr class="row">
+            <td class="col-xs-1"><img src="{{ $book->user->avatar }}" class="avatar-img"></td>
+            <td class="col-xs-4">{{ $book->title }}</td>
+            <td class="col-xs-2">{{ $book->author }}</td>
+            <td class="col-xs-2">{{ $book->publisher }}</td>
+            <td class="col-xs-1">{{ $book->price }}</td>
+            <td class="col-xs-2">{{ $book->purchase_date }}</td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
+    {{ $books->links() }}
   </div>
 </div>
 
