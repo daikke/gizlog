@@ -4,13 +4,17 @@
 <h2 class="brand-header">書籍購入情報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper">
-    <form>
-      <div class="form-group has-error">
-        <input type="file" class="form-control">
-        <span class="help-block"></span>
+    {!! Form::open(['route' => 'admin.book.csv-bulk-store', 'files' => true]) !!}
+      <div class="form-group @if ($errors->has('csv')) has-error @endif">
+        {!! Form::file('csv', ['class' => 'form-control']) !!}
+        @foreach ($errors->get('csv') as $error)
+          <span class="help-block">
+            {{ $error }}
+          </span>
+        @endforeach
         <button type="submit" class="btn btn-icon"><i class="fa fa-file"></i></button>
       </div>
-    </form>
+    {!! Form::close() !!}
   </div>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
