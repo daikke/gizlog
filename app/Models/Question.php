@@ -22,7 +22,7 @@ class Question extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -32,7 +32,7 @@ class Question extends Model
      */
     public function tagCategory(): BelongsTo
     {
-        return $this->belongsTo('App\Models\TagCategory');
+        return $this->belongsTo(TagCategory::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class Question extends Model
      */
     public function comments(): HasMany
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     /**
