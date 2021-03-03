@@ -12,11 +12,11 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $question['title'] }}</td>
+            <td class="td-text">{{ $question->title }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{!! nl2br($question['content']) !!}</td>
+            <td class='td-text'>{!! nl2br($question->content) !!}</td>
           </tr>
         </tbody>
       </table>
@@ -24,9 +24,9 @@
   </div>
   <div class="btn-bottom-wrapper">
     {{ Form::open(['route' => 'question.store']) }}
-      <input name="tag_category_id" type="hidden" value="{{ $question['tag_category_id'] }}">
-      <input name="title" type="hidden" value="{{ $question['title'] }}">
-      <input name="content" type="hidden" value="{{ $question['content'] }}">
+      <input name="tag_category_id" type="hidden" value="{{ $question->tag_category_id }}">
+      <input name="title" type="hidden" value="{{ $question->title }}">
+      <input name="content" type="hidden" value="{{ $question->content }}">
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>
