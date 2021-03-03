@@ -21,13 +21,21 @@ class QuestionController extends Controller
     private $question;
 
     /**
+     * TagCategoryモデル
+     *
+     * @var TagCategory
+     */
+    private $tagCategory;
+
+    /**
      * コンストラクタ
      *
      * @param Question $question
      */
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $tagCategory)
     {
         $this->question = $question;
+        $this->tagCategory = $tagCategory;
     }
 
     /**
@@ -40,7 +48,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $questions = $this->question->fetchByCondition($inputs);
-        $tagCategories = TagCategory::all();
+        $tagCategories = $this->tagCategory->all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
 }
