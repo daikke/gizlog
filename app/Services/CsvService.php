@@ -7,21 +7,53 @@ namespace App\Services;
  */
 class CsvService
 {
-    // CSVのカラムインデックス
-    const USER_ID_INDEX = 1;
-    const TITLE_INDEX = 2;
-    const AUTHOR_INDEX = 3;
-    const PUBLISHER_INDEX = 4;
-    const PRICE_INDEX = 5;
-    const PURCHASE_DATE_INDEX = 6;
-    // CSVの総カラム数
-    const COLUMNS_COUNT = 7;
+    /**
+     * CSVカラムインデックス
+     *
+     * @var integer
+     */
+    private $userIdIndex = 1;
+    private $titleIndex = 2;
+    private $authorIndex = 3;
+    private $publisherIndex = 4;
+    private $priceIndex = 5;
+    private $purchaseDateIndex = 6;
 
-    // SqlFileObject
+    /**
+     * CSV総カラム数
+     *
+     * @var integer
+     */
+    private $columnCount = 7;
+
+    /**
+     * SqlFileObject
+     *
+     * @var SqlFileObject
+     */
     private $csv;
 
-    // ファイルの健全性
-    public $isValid = false;
+    /**
+     * ファイルの健全性
+     *
+     * @var boolean
+     */
+    private $isValid = false;
+
+    /**
+     * CSV行数
+     *
+     * @var integer
+     */
+    private $rowCount = 0;
+
+    /**
+     * CSVオリジナルファイル名
+     *
+     * @var string
+     */
+    private $name = '';
+
 
     /**
      * コンストラクタ
@@ -48,7 +80,7 @@ class CsvService
     private function validate(): bool
     {
         foreach ($this->csv as $row) {
-            if (count($row) !== self::COLUMNS_COUNT) {
+            if (count($row) !== $this->columnCount) {
                 return false;
             }
         }
@@ -68,12 +100,12 @@ class CsvService
                 continue;
             }
             $tmpBook = [];
-            $tmpBook['user_id'] = $row[self::USER_ID_INDEX];
-            $tmpBook['title'] = $row[self::TITLE_INDEX];
-            $tmpBook['author'] = $row[self::AUTHOR_INDEX];
-            $tmpBook['publisher'] = $row[self::PUBLISHER_INDEX];
-            $tmpBook['price'] = $row[self::PRICE_INDEX];
-            $tmpBook['purchase_date'] = $row[self::PURCHASE_DATE_INDEX];
+            $tmpBook['user_id'] = $row[$this->userIdIndex];
+            $tmpBook['title'] = $row[$this->titleIndex];
+            $tmpBook['author'] = $row[$this->authorIndex];
+            $tmpBook['publisher'] = $row[$this->publisherIndex];
+            $tmpBook['price'] = $row[$this->priceIndex];
+            $tmpBook['purchase_date'] = $row[$this->purchaseDateIndex];
             $tmpBook['created_at'] = date('Y-m-d H:i:s');
             $tmpBook['updated_at'] = date('Y-m-d H:i:s');
             $books[] = $tmpBook;
