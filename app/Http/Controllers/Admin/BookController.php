@@ -48,8 +48,7 @@ class BookController extends Controller
      */
     public function csvBulkStore(BookCsvRequest $request):RedirectResponse
     {
-        $path = $request->file('csv')->path();
-        $csvService = new CsvService($path);
+        $csvService = new CsvService($request->file('csv'));
         $this->book->insert($csvService->toArray());
         return redirect()->route('admin.book.index');
     }

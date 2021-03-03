@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Http\UploadedFile;
+
 /**
  * CSVを扱うサービスクラス
  */
@@ -58,11 +60,11 @@ class CsvService
     /**
      * コンストラクタ
      *
-     * @param string $path
+     * @param UploadedFile $file
      */
-    public function __construct(string $path)
+    public function __construct(UploadedFile $file)
     {
-        $this->csv = new \SplFileObject($path);
+        $this->csv = new \SplFileObject($file->path());
         $this->csv->setFlags(
             \SplFileObject::READ_CSV|
             \SplFileObject::SKIP_EMPTY|
@@ -70,6 +72,10 @@ class CsvService
             \SplFileObject::DROP_NEW_LINE
         );
         $this->isValid = $this->validate();
+        $this->name = $file->getClientOriginalName();
+        $this->csv->seek(PHP_INT_MAX);
+        $this->rowCount = $this->csv->key();
+        $this->csv->seek(0);
     }
 
     /**
