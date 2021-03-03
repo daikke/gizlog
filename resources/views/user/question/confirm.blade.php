@@ -24,9 +24,9 @@
   </div>
   <div class="btn-bottom-wrapper">
     {{ Form::open(['route' => 'question.store']) }}
-      <input name="tag_category_id" type="hidden" value="{{ $question->tag_category_id }}">
-      <input name="title" type="hidden" value="{{ $question->title }}">
-      <input name="content" type="hidden" value="{{ $question->content }}">
+      @foreach ($question->all(['tag_category_id', 'title', 'content']) as $key => $input)
+        <input name="{{ $key }}" type="hidden" value="{{ $input }}">
+      @endforeach
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>
