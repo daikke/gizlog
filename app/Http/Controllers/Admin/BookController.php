@@ -49,7 +49,13 @@ class BookController extends Controller
     public function csvBulkStore(BookCsvRequest $request):RedirectResponse
     {
         $csvService = new CsvService($request->file('csv'));
-        $this->book->insert($csvService->toArray());
-        return redirect()->route('admin.book.index');
+        if ($csvService->getIsValid()) {
+            $books = $csvService->toArray();
+            $this->book->insert($books);
+            $message = count($books) . '件登録しました。';
+        } else {
+            $message = '登録に失敗しました。';
+        }
+        return redirect()->route('admin.book.index')->with('message', $message);
     }
 }

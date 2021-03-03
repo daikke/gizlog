@@ -43,21 +43,6 @@ class CsvService
     private $isValid = false;
 
     /**
-     * CSV行数
-     *
-     * @var integer
-     */
-    private $rowCount = 0;
-
-    /**
-     * CSVオリジナルファイル名
-     *
-     * @var string
-     */
-    private $name = '';
-
-
-    /**
      * コンストラクタ
      *
      * @param UploadedFile $file
@@ -72,10 +57,6 @@ class CsvService
             \SplFileObject::DROP_NEW_LINE
         );
         $this->isValid = $this->validate();
-        $this->name = $file->getClientOriginalName();
-        $this->csv->seek(PHP_INT_MAX);
-        $this->rowCount = $this->csv->key();
-        $this->csv->seek(0);
     }
 
     /**
@@ -119,4 +100,13 @@ class CsvService
         return $books;
     }
 
+    /**
+     * CSVバリデーション結果取得
+     *
+     * @return boolean
+     */
+    public function getIsValid(): bool
+    {
+        return $this->isValid;
+    }
 }

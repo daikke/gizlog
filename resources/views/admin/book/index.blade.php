@@ -12,6 +12,9 @@
             {{ $error }}
           </span>
         @endforeach
+        @if(Session::has('message'))
+          <span class="help-block">{{ session('message') }}</span>
+        @endif
         <button type="submit" class="btn btn-icon"><i class="fa fa-file"></i></button>
       </div>
     {!! Form::close() !!}
