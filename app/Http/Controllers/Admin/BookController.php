@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Services\CsvService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class BookController extends Controller
@@ -46,16 +47,16 @@ class BookController extends Controller
      * @param BookCsvRequest $request
      * @return RedirectResponse
      */
-    public function csvBulkStore(BookCsvRequest $request):RedirectResponse
+    public function csvBulkStore(BookCsvRequest $request): RedirectResponse
     {
         $csvService = new CsvService($request->file('csv'));
         if ($csvService->getIsValid()) {
-            $books = $csvService->toArray();
-            $this->book->insert($books);
-            $message = count($books) . '件登録しました。';
+            $this->book->insert($csvService->toArray());
+            $message = $csvService->getRowCount() . '件登録しました。';
         } else {
             $message = '登録に失敗しました。';
         }
+        Log::channel('csv_upload')->info($csvService->getMessage());
         return redirect()->route('admin.book.index')->with('message', $message);
     }
 }
