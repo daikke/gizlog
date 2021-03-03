@@ -11,7 +11,7 @@
             'tag_category_id',
             $tagCategories,
             null,
-            ['placeholder' => 'Select category', 'class' => 'form-control selectpicker form-size-small']
+            ['class' => 'form-control selectpicker form-size-small']
           );
         !!}
         @foreach ($errors->get('tag_category_id') as $error)
