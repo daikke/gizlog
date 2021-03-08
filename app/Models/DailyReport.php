@@ -16,17 +16,6 @@ class DailyReport extends Model
     use SoftDeletes;
 
     /**
-     * 並びカラム
-     * @var string
-     */
-    public $order = 'reporting_time';
-
-    /**
-     * 並び順
-     */
-    public $orderType = 'desc';
-
-    /**
      * 複数代入ホワイトリスト
      *
      * @var array
@@ -100,7 +89,7 @@ class DailyReport extends Model
                     );
                 }
             )
-            ->orderBy($this->order, $this->orderBy)
+            ->orderBy('reporting_time', 'desc')
             ->paginate($pagesize);
     }
 }
