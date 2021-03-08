@@ -74,7 +74,7 @@ class CsvService
         $this->isValid = $this->validate();
         $this->name = $file->getClientOriginalName();
         $this->csv->seek(PHP_INT_MAX);
-        $this->rowCount = $this->csv->key();
+        $this->rowCount = $this->csv->key() - 1;
         $this->csv->seek(0);
     }
 
@@ -96,14 +96,21 @@ class CsvService
     /**
      * 配列変換
      *
+     * @param integer $limit
+     * @param integer $start
      * @return array
      */
-    public function toArray(): array
+    public function toArray(int $limit, int $start = 0): array
     {
         $books = [];
-        foreach ($this->csv as $index => $row) {
-            if ($index === 0) {
+        $this->csv->seek($start);
+        for ($i = 0; $i <= $limit; $i++) {
+            if ($i === 0 && $start === 0) {
                 continue;
+            }
+            $row = $this->csv->fgetcsv();
+            if ($this->csv->eof()) {
+                break;
             }
             $tmpBook = [];
             $tmpBook['user_id'] = $row[$this->userIdIndex];

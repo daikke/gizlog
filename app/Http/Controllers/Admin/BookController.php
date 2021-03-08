@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -51,7 +52,12 @@ class BookController extends Controller
     {
         $csvService = new CsvService($request->file('csv'));
         if ($csvService->getIsValid()) {
-            $this->book->insert($csvService->toArray());
+            DB::transaction(function () use ($csvService) {
+                $limit = 500;
+                for($start = 0; $start < $csvService->getRowCount(); $start += $limit) {
+                    $this->book->insert($csvService->toArray($limit, $start));
+                }
+            });
             $message = $csvService->getRowCount() . '件登録しました。';
         } else {
             $message = '登録に失敗しました。';
