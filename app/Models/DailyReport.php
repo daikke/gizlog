@@ -77,7 +77,7 @@ class DailyReport extends Model
     {
         return $this
             ->where('user_id', $userId)
-            ->when(isset($params['reporting_time']),
+            ->when(isset($params['reporting_time']) && $params['reporting_time'] !== '',
                 function($query) use ($params) {
                     $reportingTime = new Carbon($params['reporting_time']);
                     $query->whereBetween(
