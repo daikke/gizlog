@@ -54,7 +54,7 @@ class QuestionController extends Controller
     public function create(): View
     {
         $tagCategories = TagCategory::pluck('name', 'id');
-        $tagCategories->prepend('Select category');
+        $tagCategories->prepend('Select category', '');
         return view('user.question.create', compact('tagCategories'));
     }
 
