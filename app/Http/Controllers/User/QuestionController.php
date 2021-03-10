@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\QuestionsRequest;
 use App\Http\Requests\User\CommentRequest;
 use App\Models\Comment;
 use App\Models\Question;
@@ -71,6 +72,43 @@ class QuestionController extends Controller
     }
 
     /**
+     * 作成画面
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        $tagCategories = TagCategory::pluck('name', 'id');
+        $tagCategories->prepend('Select category', '');
+        return view('user.question.create', compact('tagCategories'));
+    }
+
+    /**
+     * 確認画面表示
+     *
+     * @param QuestionsRequest $request
+     * @return View
+     */
+    public function confirm(QuestionsRequest $request): View
+    {
+        return view('user.question.confirm', compact('request'));
+    }
+
+    /**
+     * 質問作成
+     *
+     * @param QuestionsRequest $request
+     * @return RedirectResponse
+     */
+    public function store(QuestionsRequest $request): RedirectResponse
+    {
+        $input = $request->all();
+        $this->question->user_id = Auth::id();
+        $this->question->fill($input)->save();
+        return redirect()->route('question.mypage');
+    }
+
+    /*
      * コメント登録
      *
      * @param integer $questionId

@@ -31,6 +31,12 @@ class Question extends Model
      * @var integer
      */
     protected $perPage = 10;
+    protected $fillable = [
+        'content',
+        'title',
+        'tag_category_id',
+    ];
+
 
     /**
      * usersテーブルリレーション

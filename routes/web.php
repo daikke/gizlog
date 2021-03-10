@@ -37,6 +37,9 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
         Route::group(['prefix' => 'question', 'as' => 'question.'], function() {
             Route::get('/', 'QuestionController@index')->name('index');
+            Route::post('/confirm', 'QuestionController@confirm')->name('confirm');
+            Route::get('/create', 'QuestionController@create')->name('create');
+            Route::post('/', 'QuestionController@store')->name('store');
             Route::get('/{id}', 'QuestionController@show')->name('show');
             Route::post('/{id}/comment', 'QuestionController@commentStore')->name('comment.store');
         });
