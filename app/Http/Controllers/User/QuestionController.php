@@ -12,14 +12,35 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * 質問を扱うコントローラークラス
+ */
 class QuestionController extends Controller
 {
+    /**
+     * Questionモデル
+     *
+     * @var Question
+     */
     private $question;
     private $comment;
 
-    public function __construct(Question $question, Comment $comment)
+    /**
+     * TagCategoryモデル
+     *
+     * @var TagCategory
+     */
+    private $tagCategory;
+
+    /**
+     * コンストラクタ
+     *
+     * @param Question $question
+     */
+    public function __construct(Question $question, TagCategory $tagCategory, Comment $comment)
     {
         $this->question = $question;
+        $this->tagCategory = $tagCategory;
         $this->comment = $comment;
     }
 
@@ -31,9 +52,9 @@ class QuestionController extends Controller
      */
     public function index(Request $request): View
     {
-        $input = $request->all();
-        $questions = $this->question->fetchAll($input);
-        $tagCategories = TagCategory::all();
+        $inputs = $request->all();
+        $questions = $this->question->fetchByCondition($inputs);
+        $tagCategories = $this->tagCategory->all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
 

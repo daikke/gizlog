@@ -8,11 +8,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
+/**
+ * questionsテーブルのモデルクラス
+ */
 class Question extends Model
 {
-    const DEFAULT_ORDER = 'created_at';
-    const DEFAULT_ORDER_TYPE = 'desc';
+    /**
+     * 並びカラム
+     * @var string
+     */
+    protected $order = 'created_at';
 
+    /**
+     * 並び順
+     * @var string
+     */
+    protected $orderType = 'desc';
+
+    /**
+     * ページネーション件数
+     *
+     * @var integer
+     */
     protected $perPage = 10;
 
     /**
@@ -46,7 +63,7 @@ class Question extends Model
     }
 
     /**
-     * タイトルアクセサ（30文字区切り）
+     * タイトルアクセサ
      *
      * @param string $title
      * @return string
@@ -60,10 +77,9 @@ class Question extends Model
      * 質問一覧取得
      *
      * @param array $params
-     * @param integer $pagesize
      * @return LengthAwarePaginator
      */
-    public function fetchAll(array $params, int $pagesize = NULL): LengthAwarePaginator
+    public function fetchByCondition(array $params): LengthAwarePaginator
     {
         return $this
             ->when(!empty($params['tag_category_id']),
@@ -73,10 +89,10 @@ class Question extends Model
             )
             ->when(isset($params['search_word']) && $params['search_word'] !== '',
                 function($query) use ($params) {
-                    $query->where('title', 'LIKE', "%{$params['search_word']}%");
+                    $query->where('title', 'LIKE', '%' . $params['search_word'] . '%');
                 }
             )
-            ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
-            ->paginate($pagesize);
+            ->orderBy($this->order, $this->orderBy)
+            ->paginate();
     }
 }
