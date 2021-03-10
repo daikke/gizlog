@@ -66,7 +66,7 @@ class QuestionController extends Controller
      */
     public function confirm(QuestionsRequest $request): View
     {
-        return view('user.question.confirm', ['question' => $request]);
+        return view('user.question.confirm', compact('request'));
     }
 
     /**
