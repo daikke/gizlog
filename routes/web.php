@@ -44,10 +44,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
             Route::get('/{id}/edit', 'QuestionController@edit')->name('edit');
             Route::post('/confirm/{id?}', 'QuestionController@confirm')->name('confirm');
             Route::post('/', 'QuestionController@store')->name('store');
-        });
-
-        Route::group(['prefix' => 'comment', 'as' => 'comment.'], function() {
-            Route::post('/', 'CommentController@store')->name('store');
+            Route::post('/{id}/comment', 'QuestionController@commentStore')->name('comment.store');
         });
     });
 });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\QuestionsRequest;
+use App\Http\Requests\User\CommentRequest;
+use App\Models\Comment;
 use App\Models\Question;
 use App\Models\TagCategory;
 use Illuminate\Http\RedirectResponse;
@@ -12,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
- * 質問を取り扱うコントローラークラス
+ * 質問を扱うコントローラークラス
  */
 class QuestionController extends Controller
 {
-     /**
+    /**
      * Questionモデル
      *
      * @var Question
@@ -24,13 +26,43 @@ class QuestionController extends Controller
     private $question;
 
     /**
+     * Commentモデル
+     *
+     * @var Comment
+     */
+    private $comment;
+
+    /**
+     * TagCategoryモデル
+     *
+     * @var TagCategory
+     */
+    private $tagCategory;
+
+    /**
      * コンストラクタ
      *
      * @param Question $question
      */
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $tagCategory, Comment $comment)
     {
         $this->question = $question;
+        $this->tagCategory = $tagCategory;
+        $this->comment = $comment;
+    }
+
+    /**
+     * 一覧表示
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function index(Request $request): View
+    {
+        $inputs = $request->all();
+        $questions = $this->question->fetchByCondition($inputs);
+        $tagCategories = $this->tagCategory->all();
+        return view('user.question.index', compact('questions', 'tagCategories'));
     }
 
     /**
@@ -47,6 +79,30 @@ class QuestionController extends Controller
     }
 
     /**
+     * 詳細表示
+     *
+     * @param integer $id
+     * @return View
+     */
+    public function show(int $id): View
+    {
+        $question = $this->question->find($id);
+        return view('user.question.show', compact('question'));
+    }
+
+    /**
+     * 作成画面
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        $tagCategories = TagCategory::pluck('name', 'id');
+        $tagCategories->prepend('Select category', '');
+        return view('user.question.create', compact('tagCategories'));
+    }
+
+    /**
      * 確認画面表示
      *
      * @param QuestionsRequest $request
@@ -54,8 +110,7 @@ class QuestionController extends Controller
      */
     public function confirm(QuestionsRequest $request): View
     {
-        $question = $request->all();
-        return view('user.question.confirm', compact('question'));
+        return view('user.question.confirm', compact('request'));
     }
 
     /**
@@ -70,5 +125,21 @@ class QuestionController extends Controller
         $this->question->user_id = Auth::id();
         $this->question->fill($inputs)->save();
         return redirect()->route('question.mypage');
+    }
+
+    /*
+     * コメント登録
+     *
+     * @param integer $questionId
+     * @param CommentRequest $request
+     * @return RedirectResponse
+     */
+    public function commentStore(int $questionId, CommentRequest $request): RedirectResponse
+    {
+        $input = $request->all();
+        $this->comment->user_id = Auth::id();
+        $this->comment->question_id = $questionId;
+        $this->comment->fill($input)->save();
+        return redirect()->route('question.index');
     }
 }
