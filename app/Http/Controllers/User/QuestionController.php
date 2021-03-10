@@ -24,6 +24,12 @@ class QuestionController extends Controller
      * @var Question
      */
     private $question;
+
+    /**
+     * Commentモデル
+     *
+     * @var Comment
+     */
     private $comment;
 
     /**
@@ -122,5 +128,28 @@ class QuestionController extends Controller
         $this->comment->question_id = $questionId;
         $this->comment->fill($input)->save();
         return redirect()->route('question.index');
+    }
+
+    /**
+     * マイページ表示
+     *
+     * @return View
+     */
+    public function mypage(): View
+    {
+        $questions = $this->question->fetchByUserId(Auth::id());
+        return view('user.question.mypage', compact('questions'));
+    }
+
+    /**
+     * 削除
+     *
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
+    {
+        $this->question->find($id)->delete();
+        return redirect()->route('question.mypage');
     }
 }

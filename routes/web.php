@@ -25,6 +25,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::group(['middleware' => 'auth'], function() {
+
         Route::group(['prefix' => 'report', 'as' => 'report.'], function() {
             Route::get('/', 'DailyReportController@index')->name('index');
             Route::get('create', 'DailyReportController@create')->name('create');
@@ -40,6 +41,9 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
             Route::post('/confirm', 'QuestionController@confirm')->name('confirm');
             Route::get('/create', 'QuestionController@create')->name('create');
             Route::post('/', 'QuestionController@store')->name('store');
+            Route::get('/mypage', 'QuestionController@mypage')->name('mypage');
+            Route::get('/{id}/edit', 'QuestionController@edit')->name('edit');
+            Route::delete('/{id}', 'QuestionController@destroy')->name('destroy');
             Route::get('/{id}', 'QuestionController@show')->name('show');
             Route::post('/{id}/comment', 'QuestionController@commentStore')->name('comment.store');
         });
