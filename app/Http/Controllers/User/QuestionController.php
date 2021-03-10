@@ -108,9 +108,23 @@ class QuestionController extends Controller
      * @param QuestionsRequest $request
      * @return View
      */
-    public function confirm(QuestionsRequest $request): View
+    public function confirm(QuestionsRequest $request, $id = null): View
     {
+        $request->id = $id;
         return view('user.question.confirm', compact('request'));
+    }
+
+    /**
+     * 更新処理
+     *
+     * @param integer $id
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(int $id, Request $request): RedirectResponse
+    {
+        $this->question->find($id)->fill($request->all())->save();
+        return redirect()->route('question.mypage');
     }
 
     /**
