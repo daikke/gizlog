@@ -5,19 +5,44 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\QuestionsRequest;
+use App\Http\Requests\User\CommentRequest;
+use App\Models\Comment;
 use App\Models\Question;
 use App\Models\TagCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * 質問を扱うコントローラークラス
+ */
 class QuestionController extends Controller
 {
+    /**
+     * Questionモデル
+     *
+     * @var Question
+     */
     private $question;
+    private $comment;
 
-    public function __construct(Question $question)
+    /**
+     * TagCategoryモデル
+     *
+     * @var TagCategory
+     */
+    private $tagCategory;
+
+    /**
+     * コンストラクタ
+     *
+     * @param Question $question
+     */
+    public function __construct(Question $question, TagCategory $tagCategory, Comment $comment)
     {
         $this->question = $question;
+        $this->tagCategory = $tagCategory;
+        $this->comment = $comment;
     }
 
     /**
@@ -28,9 +53,9 @@ class QuestionController extends Controller
      */
     public function index(Request $request): View
     {
-        $input = $request->all();
-        $questions = $this->question->fetchAll($input);
-        $tagCategories = TagCategory::all();
+        $inputs = $request->all();
+        $questions = $this->question->fetchByCondition($inputs);
+        $tagCategories = $this->tagCategory->all();
         return view('user.question.index', compact('questions', 'tagCategories'));
     }
 
@@ -81,5 +106,21 @@ class QuestionController extends Controller
         $this->question->user_id = Auth::id();
         $this->question->fill($input)->save();
         return redirect()->route('question.mypage');
+    }
+
+    /*
+     * コメント登録
+     *
+     * @param integer $questionId
+     * @param CommentRequest $request
+     * @return RedirectResponse
+     */
+    public function commentStore(int $questionId, CommentRequest $request): RedirectResponse
+    {
+        $input = $request->all();
+        $this->comment->user_id = Auth::id();
+        $this->comment->question_id = $questionId;
+        $this->comment->fill($input)->save();
+        return redirect()->route('question.index');
     }
 }

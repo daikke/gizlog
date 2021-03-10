@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * commentsテーブルのモデルクラス
+ */
 class Comment extends Model
 {
     use SoftDeletes;
@@ -13,7 +16,6 @@ class Comment extends Model
     protected $fillable = [
         'title',
         'content',
-        'question_id',
     ];
 
     /**

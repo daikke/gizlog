@@ -6,7 +6,7 @@
   <div class="btn-wrapper daily-report">
     {{--  TODO 日報検索機能  --}}
     {!! Form::open(['route' => 'report.index', 'method' => 'GET']) !!}
-      {!! Form::month('reporting_time', request()->get('reporting_time'), ['class' => 'form-control']) !!}
+      {!! Form::month('reporting_time', request()->reporting_time, ['class' => 'form-control']) !!}
       <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
     {!! Form::close() !!}
     <a class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-plus"></i></a>
@@ -25,8 +25,8 @@
         @foreach ($reports as $report)
           <tr class="row">
             <td class="col-xs-2">{{ $report->reporting_time->format('m/d(D)') }}</td>
-            <td class="col-xs-3">{{ $report->title, 30 }}</td>
-            <td class="col-xs-5">{{ $report->contents, 50 }}</td>
+            <td class="col-xs-3">{{ $report->title }}</td>
+            <td class="col-xs-5">{{ $report->contents }}</td>
             <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $report->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
         @endforeach
