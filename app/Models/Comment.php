@@ -13,7 +13,6 @@ class Comment extends Model
     protected $fillable = [
         'title',
         'content',
-        'question_id',
     ];
 
     /**
