@@ -40,6 +40,10 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
             Route::get('/', 'QuestionController@index')->name('index');
             Route::get('/mypage', 'QuestionController@mypage')->name('mypage');
             Route::get('/create', 'QuestionController@create')->name('create');
+            Route::post('/', 'QuestionController@store')->name('store');
+            Route::get('/mypage', 'QuestionController@mypage')->name('mypage');
+            Route::get('/{id}/edit', 'QuestionController@edit')->name('edit');
+            Route::delete('/{id}', 'QuestionController@destroy')->name('destroy');
             Route::get('/{id}', 'QuestionController@show')->name('show');
             Route::put('/{id}', 'QuestionController@update')->name('update');
             Route::get('/{id}/edit', 'QuestionController@edit')->name('edit');
