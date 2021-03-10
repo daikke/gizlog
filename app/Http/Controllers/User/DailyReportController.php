@@ -11,11 +11,24 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * 日報を取り扱うコントローラークラス
+ */
 class DailyReportController extends Controller
 {
 
+    /**
+     * DailyReportクラス
+     *
+     * @var DailyReport
+     */
     public $dailyReport;
 
+    /**
+     * コンストラクタ
+     *
+     * @param DailyReport $dailyReport
+     */
     public function __construct(DailyReport $dailyReport)
     {
         $this->dailyReport = $dailyReport;

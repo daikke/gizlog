@@ -8,29 +8,43 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+/**
+ * daily_reportsテーブルのModelクラス
+ */
 class DailyReport extends Model
 {
     use SoftDeletes;
 
-
-    const DEFAULT_ORDER = 'reporting_time';
-    const DEFAULT_ORDER_TYPE = 'desc';
-
+    /**
+     * 複数代入ホワイトリスト
+     *
+     * @var array
+     */
     protected $fillable = [
         'reporting_time',
         'title',
         'contents',
     ];
 
+    /**
+     * 日付ミューテタ
+     *
+     * @var array
+     */
     protected $dates = [
         'reporting_time',
         'deleted_at',
     ];
 
+    /**
+     * ページネーション件数
+     *
+     * @var integer
+     */
     protected $perPage = 10;
 
     /**
-     * タイトルアクセサ（30文字区切り）
+     * タイトルアクセサ
      *
      * @param string $title
      * @return string
@@ -41,7 +55,7 @@ class DailyReport extends Model
     }
 
     /**
-     * コンテンツアクセサ（50文字区切り）
+     * コンテンツアクセサ
      *
      * @param string $contents
      * @return string
@@ -63,7 +77,7 @@ class DailyReport extends Model
     {
         return $this
             ->where('user_id', $userId)
-            ->when(isset($params['reporting_time']),
+            ->when(isset($params['reporting_time']) && $params['reporting_time'] !== '',
                 function($query) use ($params) {
                     $reportingTime = new Carbon($params['reporting_time']);
                     $query->whereBetween(
@@ -75,7 +89,7 @@ class DailyReport extends Model
                     );
                 }
             )
-            ->orderBy(self::DEFAULT_ORDER, self::DEFAULT_ORDER_TYPE)
+            ->orderBy('reporting_time', 'desc')
             ->paginate($pagesize);
     }
 }

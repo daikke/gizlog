@@ -62,7 +62,7 @@ class Question extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -72,7 +72,7 @@ class Question extends Model
      */
     public function tagCategory(): BelongsTo
     {
-        return $this->belongsTo('App\Models\TagCategory');
+        return $this->belongsTo(TagCategory::class);
     }
 
     /**
@@ -82,7 +82,7 @@ class Question extends Model
      */
     public function comments(): HasMany
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     /**
@@ -107,6 +107,29 @@ class Question extends Model
         return $this
             ->where('user_id', $userId)
             ->orderBy($this->order, $this->orderType)
+            ->paginate();
+    }
+
+    /**
+     * 質問一覧取得
+     *
+     * @param array $params
+     * @return LengthAwarePaginator
+     */
+    public function fetchByCondition(array $params): LengthAwarePaginator
+    {
+        return $this
+            ->when(!empty($params['tag_category_id']),
+                function($query) use ($params) {
+                    $query->where('tag_category_id', $params['tag_category_id']);
+                }
+            )
+            ->when(isset($params['search_word']) && $params['search_word'] !== '',
+                function($query) use ($params) {
+                    $query->where('title', 'LIKE', '%' . $params['search_word'] . '%');
+                }
+            )
+            ->orderBy($this->order, $this->orderBy)
             ->paginate();
     }
 }
