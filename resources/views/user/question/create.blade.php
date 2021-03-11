@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'question.confirm', 'method' => 'POST']) !!}
-      @include('user.question.components.select_category', compact('tagCategories'))
+      @include('user.question.components.select_category', compact('tagCategories', 'errors'))
       <div class="form-group @if($errors->has('title')) has-error @endif">
         {!! Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'title']) !!}
         @foreach ($errors->get('title') as $error)
