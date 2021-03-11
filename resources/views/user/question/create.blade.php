@@ -5,19 +5,7 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'question.confirm', 'method' => 'POST']) !!}
-      <div class="form-group @if($errors->has('tag_category_id')) has-error @endif">
-        {!!
-          Form::select(
-            'tag_category_id',
-            $tagCategories,
-            null,
-            ['class' => 'form-control selectpicker form-size-small']
-          );
-        !!}
-        @foreach ($errors->get('tag_category_id') as $error)
-          <span class="help-block">{{ $error }}</span>
-        @endforeach
-      </div>
+      @include('user.question.components.select_category', compact('tagCategories'))
       <div class="form-group @if($errors->has('title')) has-error @endif">
         {!! Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'title']) !!}
         @foreach ($errors->get('title') as $error)
