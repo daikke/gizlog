@@ -136,7 +136,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $this->question->user_id = Auth::id();
-        $this->question->fill($inputs)->save();
+        $this->question->registerWithRelation($inputs);
         return redirect()->route('question.mypage');
     }
 

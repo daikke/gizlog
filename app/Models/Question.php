@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -44,7 +46,6 @@ class Question extends Model
     protected $fillable = [
         'content',
         'title',
-        'tag_category_id',
     ];
 
     /**
@@ -134,5 +135,19 @@ class Question extends Model
             )
             ->orderBy($this->order, $this->orderBy)
             ->paginate();
+    }
+
+    /**
+     * 作成処理
+     *
+     * @param array $inputs
+     * @return void
+     */
+    public function registerWithRelation(array $inputs): void
+    {
+        DB::transaction(function () use ($inputs) {
+            $this->fill($inputs)->save();
+            $this->tagCategories()->sync($inputs['tag_category_ids']);
+        });
     }
 }
