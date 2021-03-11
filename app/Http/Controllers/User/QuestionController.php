@@ -66,6 +66,19 @@ class QuestionController extends Controller
     }
 
     /**
+     * 編集画面表示
+     *
+     * @param integer $id
+     * @return View
+     */
+    public function edit(int $id): View
+    {
+        $tagCategories = TagCategory::pluck('name', 'id');
+        $question = $this->question->find($id);
+        return view('user.question.edit', compact('question', 'tagCategories'));
+    }
+
+    /**
      * 詳細表示
      *
      * @param integer $id
@@ -95,9 +108,23 @@ class QuestionController extends Controller
      * @param QuestionsRequest $request
      * @return View
      */
-    public function confirm(QuestionsRequest $request): View
+    public function confirm(QuestionsRequest $request, $id = null): View
     {
+        $request->id = $id;
         return view('user.question.confirm', compact('request'));
+    }
+
+    /**
+     * 更新処理
+     *
+     * @param integer $id
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(int $id, Request $request): RedirectResponse
+    {
+        $this->question->find($id)->fill($request->all())->save();
+        return redirect()->route('question.mypage');
     }
 
     /**
@@ -108,9 +135,9 @@ class QuestionController extends Controller
      */
     public function store(QuestionsRequest $request): RedirectResponse
     {
-        $input = $request->all();
+        $inputs = $request->all();
         $this->question->user_id = Auth::id();
-        $this->question->fill($input)->save();
+        $this->question->fill($inputs)->save();
         return redirect()->route('question.mypage');
     }
 
