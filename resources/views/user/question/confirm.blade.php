@@ -23,7 +23,11 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    {{ Form::open(['route' => 'question.store']) }}
+    @if ($request->id === null)
+      {{ Form::open(['route' => 'question.store']) }}
+    @else
+      {{ Form::open(['route' => ['question.update', $request->id], 'method' => 'PUT']) }}
+    @endif
       @foreach ($request->only(['tag_category_id', 'title', 'content']) as $key => $input)
         <input name="{{ $key }}" type="hidden" value="{{ $input }}">
       @endforeach
@@ -33,4 +37,3 @@
 </div>
 
 @endsection
-
