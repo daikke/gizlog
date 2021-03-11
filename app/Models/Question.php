@@ -122,7 +122,9 @@ class Question extends Model
         return $this
             ->when(!empty($params['tag_category_id']),
                 function($query) use ($params) {
-                    $query->where('tag_category_id', $params['tag_category_id']);
+                    $query
+                        ->join('question_tag_category', 'questions.id', 'question_tag_category.question_id')
+                        ->where('question_tag_category.tag_category_id', $params['tag_category_id']);
                 }
             )
             ->when(isset($params['search_word']) && $params['search_word'] !== '',
