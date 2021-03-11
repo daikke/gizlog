@@ -150,4 +150,19 @@ class Question extends Model
             $this->tagCategories()->sync($inputs['tag_category_ids']);
         });
     }
+
+    /**
+     * 更新処理
+     *
+     * @param integer $id
+     * @param array $inputs
+     * @return void
+     */
+    public function updateWithRelation(int $id, array $inputs): void
+    {
+        DB::transaction(function () use ($id, $inputs) {
+            $this->find($id)->fill($inputs)->save();
+            $this->find($id)->tagCategories()->sync($inputs['tag_category_ids']);
+        });
+    }
 }

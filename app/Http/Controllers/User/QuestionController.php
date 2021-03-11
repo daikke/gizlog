@@ -122,7 +122,8 @@ class QuestionController extends Controller
      */
     public function update(int $id, Request $request): RedirectResponse
     {
-        $this->question->find($id)->fill($request->all())->save();
+        $inputs = $request->all();
+        $this->question->updateWithRelation($id, $inputs);
         return redirect()->route('question.mypage');
     }
 
