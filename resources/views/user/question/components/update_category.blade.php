@@ -1,23 +1,13 @@
 <div class="form-group">
-  <div class="form-group form-inline">
+  @foreach ($tagCategories as $id => $tagCategory)
     <label class="checkbox-inline">
-      <input type="checkbox" name="tag_category_id[]" value="" checked="true">
-      front
+      {!! Form::checkbox('tag_category_ids[]', $id, $question->tagCategories->pluck('id')->search($id) !== false) !!}
+      {{ $tagCategory }}
     </label>
-    <label class="checkbox-inline">
-      <input type="checkbox" name="tag_category_id[]" value="" checked="true">
-      back
-    </label>
-    <label class="checkbox-inline">
-      <input type="checkbox" name="tag_category_id[]" value="" checked="true">
-      infra
-    </label>
-    <label class="checkbox-inline">
-      <input type="checkbox" name="tag_category_id[]" value="" checked="true">
-      others
-    </label>
-  </div>
+  @endforeach
   <div>
-    <span class="help-block"></span>
+    @foreach ($errors->get('tag_category_ids') as $error)
+      <span class="help-block">{{ $error }}</span>
+    @endforeach
   </div>
 </div>
