@@ -47,7 +47,7 @@ class BookController extends Controller
      * @param BookCsvRequest $request
      * @return RedirectResponse
      */
-    public function csvBulkStore(BookCsvRequest $request): RedirectResponse
+    public function upload(BookCsvRequest $request): RedirectResponse
     {
         $csvService = new CsvService($request->file('csv'));
         if ($csvService->getIsValid()) {

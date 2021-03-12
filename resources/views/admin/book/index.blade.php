@@ -4,7 +4,7 @@
 <h2 class="brand-header">書籍購入情報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper">
-    {!! Form::open(['route' => 'admin.book.csv-bulk-store', 'files' => true]) !!}
+    {!! Form::open(['route' => 'admin.book.upload', 'files' => true]) !!}
       <div class="form-group @if ($errors->has('csv')) has-error @endif">
         {!! Form::file('csv', ['class' => 'form-control']) !!}
         @foreach ($errors->get('csv') as $error)
