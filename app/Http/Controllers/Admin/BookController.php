@@ -13,7 +13,11 @@ use Illuminate\View\View;
 
 class BookController extends Controller
 {
-    // bookモデル
+    /**
+     * Bookモデルインスタンス
+     *
+     * @var Book
+     */
     private $book;
 
     /**
