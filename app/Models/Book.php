@@ -26,6 +26,13 @@ class Book extends Model
     ];
 
     /**
+     * ページサイズ
+     *
+     * @var integer
+     */
+    protected $perPage = 10;
+
+    /**
      * priceアクセサ
      *
      * @param integer $price
@@ -35,13 +42,6 @@ class Book extends Model
     {
         return number_format($price);
     }
-
-    /**
-     * ページサイズ
-     *
-     * @var integer
-     */
-    protected $perPage = 10;
 
     /**
      * usersテーブルリレーション
