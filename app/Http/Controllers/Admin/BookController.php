@@ -37,7 +37,7 @@ class BookController extends Controller
      */
     public function index(): View
     {
-        $books = $this->book->orderBy('created_at', 'desc')->paginate();
+        $books = $this->book->fetchBooks();
         return view('admin.book.index', compact('books'));
     }
 
