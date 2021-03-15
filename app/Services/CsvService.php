@@ -54,7 +54,7 @@ class CsvService
      *
      * @var string
      */
-    private $name = '';
+    private $fileName = '';
 
 
     /**
@@ -72,7 +72,7 @@ class CsvService
             \SplFileObject::DROP_NEW_LINE
         );
         $this->isValid = $this->validate();
-        $this->name = $file->getClientOriginalName();
+        $this->fileName = $file->getClientOriginalName();
         $this->csv->seek(PHP_INT_MAX);
         $this->rowCount = $this->csv->key();
         $this->csv->seek(0);
@@ -127,9 +127,9 @@ class CsvService
     public function getMessage(): string
     {
         if ($this->isValid) {
-            $message = '[CSV取り込み成功]ファイル名：' . $this->name . ', 件数：' . $this->rowCount . '件';
+            $message = '[CSV取り込み成功]ファイル名：' . $this->fileName . ', 件数：' . $this->rowCount . '件';
         } else {
-            $message = '[CSV取り込み失敗]ファイル名：' . $this->name . ', 件数：' . $this->rowCount . '件, 内容:カラム数が欠如しているレコードが存在します';
+            $message = '[CSV取り込み失敗]ファイル名：' . $this->fileName . ', 件数：' . $this->rowCount . '件, 内容:カラム数が欠如しているレコードが存在します';
         }
         return $message;
     }
