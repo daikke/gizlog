@@ -24,7 +24,7 @@ class BookCsvRequest extends FormRequest
     {
         $postData = $this->all();
         return [
-            'csv'  => 'required|mimes:txt,csv|max:110',
+            'csv'  => 'required|mimes:txt,csv|max:110', // mimeタイプ指定のため、txtも指定必要
         ];
     }
 
