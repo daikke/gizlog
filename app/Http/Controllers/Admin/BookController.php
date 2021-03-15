@@ -50,13 +50,13 @@ class BookController extends Controller
     public function upload(BookCsvRequest $request): RedirectResponse
     {
         $csvService = new CsvService($request->file('csv'));
+        Log::channel('csv_upload')->info($csvService->getMessage());
+
         if ($csvService->getIsValid()) {
             $this->book->insert($csvService->toArray());
-            $message = $csvService->getRowCount() . '件登録しました。';
-        } else {
-            $message = '登録に失敗しました。';
+            return redirect()->route('admin.book.index')->with('message', $csvService->getRowCount() . '件登録しました。');
         }
-        Log::channel('csv_upload')->info($csvService->getMessage());
-        return redirect()->route('admin.book.index')->with('message', $message);
+
+        return redirect()->route('admin.book.index')->with('message', '登録に失敗しました。');
     }
 }
