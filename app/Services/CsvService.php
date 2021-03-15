@@ -36,7 +36,7 @@ class CsvService
     private $csv;
 
     /**
-     * ファイルの健全性
+     * ファイルのバリデーション結果
      *
      * @var boolean
      */
