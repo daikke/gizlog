@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use \SplFileObject;
 use Illuminate\Http\UploadedFile;
 
 /**
@@ -64,12 +65,12 @@ class CsvService
      */
     public function __construct(UploadedFile $file)
     {
-        $this->csv = new \SplFileObject($file->path());
+        $this->csv = new SplFileObject($file->path());
         $this->csv->setFlags(
-            \SplFileObject::READ_CSV|
-            \SplFileObject::SKIP_EMPTY|
-            \SplFileObject::READ_AHEAD|
-            \SplFileObject::DROP_NEW_LINE
+            SplFileObject::READ_CSV|
+            SplFileObject::SKIP_EMPTY|
+            SplFileObject::READ_AHEAD|
+            SplFileObject::DROP_NEW_LINE
         );
         $this->isValid = $this->validate();
         $this->fileName = $file->getClientOriginalName();
