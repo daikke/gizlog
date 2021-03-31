@@ -12,22 +12,18 @@ class CsvService
 {
     /**
      * CSVカラムインデックス
-     *
-     * @var integer
      */
-    private $userIdIndex = 1;
-    private $titleIndex = 2;
-    private $authorIndex = 3;
-    private $publisherIndex = 4;
-    private $priceIndex = 5;
-    private $purchaseDateIndex = 6;
+    const USER_ID_INDEX = 1;
+    const TITLE_INDEX = 2;
+    const AUTHOR_INDEX = 3;
+    const PUBLISHER_INDEX = 4;
+    const PRICE_INDEX = 5;
+    const PURCHASE_DATE_INDEX = 6;
 
     /**
      * CSV総カラム数
-     *
-     * @var integer
      */
-    private $columnCount = 7;
+    const COLUMN_COUNT = 7;
 
     /**
      * SqlFileObject
@@ -69,7 +65,7 @@ class CsvService
     public function isValid(): bool
     {
         foreach ($this->csv as $row) {
-            if (count($row) !== $this->columnCount) {
+            if (count($row) !== self::COLUMN_COUNT) {
                 return false;
             }
         }
@@ -99,12 +95,12 @@ class CsvService
                 continue;
             }
             $tmpBook = [];
-            $tmpBook['user_id'] = $row[$this->userIdIndex];
-            $tmpBook['title'] = $row[$this->titleIndex];
-            $tmpBook['author'] = $row[$this->authorIndex];
-            $tmpBook['publisher'] = $row[$this->publisherIndex];
-            $tmpBook['price'] = $row[$this->priceIndex];
-            $tmpBook['purchase_date'] = $row[$this->purchaseDateIndex];
+            $tmpBook['user_id'] = $row[self::USER_ID_INDEX];
+            $tmpBook['title'] = $row[self::TITLE_INDEX];
+            $tmpBook['author'] = $row[self::AUTHOR_INDEX];
+            $tmpBook['publisher'] = $row[self::PUBLISHER_INDEX];
+            $tmpBook['price'] = $row[self::PRICE_INDEX];
+            $tmpBook['purchase_date'] = $row[self::PURCHASE_DATE_INDEX];
             $tmpBook['created_at'] = date('Y-m-d H:i:s');
             $tmpBook['updated_at'] = date('Y-m-d H:i:s');
             $books[] = $tmpBook;
