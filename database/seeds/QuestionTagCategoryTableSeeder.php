@@ -13,8 +13,12 @@ class QuestionTagCategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('question_tag_category')->truncate();
         factory(Question::class, 10)->create();
+        $this->call(TagCategoriesSeeder::class);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         $categoryIds = TagCategory::pluck('id');
         $categoriesCount = $categoryIds->count();
         $registerData = [];
