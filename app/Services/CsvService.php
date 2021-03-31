@@ -75,6 +75,23 @@ class CsvService
     }
 
     /**
+     * 欠損カラムを取得
+     *
+     * @return array
+     */
+    private function getMissingRows(): array
+    {
+        $rowNums = [];
+        foreach ($this->csv as $index => $row) {
+            if (count($row) !== self::COLUMN_COUNT) {
+                $rowNums[] = $index + 1;
+            }
+        }
+
+        return $rowNums;
+    }
+
+    /**
      * クライアントファイル名取得
      *
      * @return string
@@ -117,7 +134,7 @@ class CsvService
         if ($this->isValid()) {
             $message = '[CSV取り込み成功]ファイル名：' . $this->getFileName() . ', 件数：' . $this->getRowCount() . '件';
         } else {
-            $message = '[CSV取り込み失敗]ファイル名：' . $this->getFileName() . ', 件数：' . $this->getRowCount() . '件, 内容:カラム数が欠如しているレコードが存在します';
+            $message = '[CSV取り込み失敗]ファイル名：' . $this->getFileName() . ', 行数：' . implode('.', $this->getMissingRows()) . ', 内容:カラム数が欠如しているレコードが存在します';
         }
         return $message;
     }
