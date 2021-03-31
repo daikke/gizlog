@@ -100,8 +100,8 @@ class CsvService
             $tmpBook = [];
             unset($row[0]);
             $tmpBook = array_combine(self::COLUMN_NAMES, $row);
-            $tmpBook['created_at'] = date('Y-m-d H:i:s');
-            $tmpBook['updated_at'] = date('Y-m-d H:i:s');
+            $tmpBook['created_at'] = now();
+            $tmpBook['updated_at'] = now();
             $books[] = $tmpBook;
         }
         return $books;
