@@ -11,19 +11,21 @@ use Illuminate\Http\UploadedFile;
 class CsvService
 {
     /**
-     * CSVカラムインデックス
-     */
-    const USER_ID_INDEX = 1;
-    const TITLE_INDEX = 2;
-    const AUTHOR_INDEX = 3;
-    const PUBLISHER_INDEX = 4;
-    const PRICE_INDEX = 5;
-    const PURCHASE_DATE_INDEX = 6;
-
-    /**
      * CSV総カラム数
      */
     const COLUMN_COUNT = 7;
+
+    /**
+     * テーブルカラム名
+     */
+    const COLUMN_NAMES = [
+        'user_id',
+        'title',
+        'author',
+        'publisher',
+        'price',
+        'purchase_date',
+    ];
 
     /**
      * SqlFileObject
@@ -96,12 +98,8 @@ class CsvService
                 continue;
             }
             $tmpBook = [];
-            $tmpBook['user_id'] = $row[self::USER_ID_INDEX];
-            $tmpBook['title'] = $row[self::TITLE_INDEX];
-            $tmpBook['author'] = $row[self::AUTHOR_INDEX];
-            $tmpBook['publisher'] = $row[self::PUBLISHER_INDEX];
-            $tmpBook['price'] = $row[self::PRICE_INDEX];
-            $tmpBook['purchase_date'] = $row[self::PURCHASE_DATE_INDEX];
+            unset($row[0]);
+            $tmpBook = array_combine(self::COLUMN_NAMES, $row);
             $tmpBook['created_at'] = date('Y-m-d H:i:s');
             $tmpBook['updated_at'] = date('Y-m-d H:i:s');
             $books[] = $tmpBook;
