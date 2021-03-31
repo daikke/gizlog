@@ -52,7 +52,7 @@ class BookController extends Controller
         $csvService = new CsvService($request->file('csv'));
         Log::channel('csv_upload')->info($csvService->getMessage());
 
-        if ($csvService->getIsValid()) {
+        if ($csvService->isValid()) {
             $this->book->insert($csvService->toArray());
             return redirect()->route('admin.book.index')->with('message', $csvService->getRowCount() . '件登録しました。');
         }
