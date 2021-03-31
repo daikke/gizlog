@@ -123,7 +123,7 @@ class QuestionController extends Controller
     public function update(int $id, Request $request): RedirectResponse
     {
         $inputs = $request->all();
-        $this->question->updateWithRelation($id, $inputs);
+        $this->question->updateWithTagCategories($id, $inputs);
         return redirect()->route('question.mypage');
     }
 
@@ -137,7 +137,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $this->question->user_id = Auth::id();
-        $this->question->registerWithRelation($inputs);
+        $this->question->registerWithTagCategories($inputs);
         return redirect()->route('question.mypage');
     }
 

@@ -143,7 +143,7 @@ class Question extends Model
      * @param array $inputs
      * @return void
      */
-    public function registerWithRelation(array $inputs): void
+    public function registerWithTagCategories(array $inputs): void
     {
         DB::transaction(function () use ($inputs) {
             $this->fill($inputs)->save();
@@ -158,7 +158,7 @@ class Question extends Model
      * @param array $inputs
      * @return void
      */
-    public function updateWithRelation(int $id, array $inputs): void
+    public function updateWithTagCategories(int $id, array $inputs): void
     {
         DB::transaction(function () use ($id, $inputs) {
             $this->find($id)->fill($inputs)->save();
