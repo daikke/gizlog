@@ -17,8 +17,8 @@ class CreateQuestionTagCategoryTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->integer('tag_category_id')->unsigned();
             $table->primary(['question_id', 'tag_category_id']);
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->foreign('tag_category_id')->references('id')->on('tag_categories')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('tag_category_id')->references('id')->on('tag_categories');
         });
     }
 
