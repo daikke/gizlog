@@ -91,6 +91,7 @@ class CsvService
     {
         $books = [];
         foreach ($this->csv as $index => $row) {
+            // headerのため次ループへ
             if ($index === 0) {
                 continue;
             }
