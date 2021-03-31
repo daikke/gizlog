@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $this->call([
             AdminUsersTableSeeder::class,
             UsersTableSeeder::class,
@@ -21,7 +20,6 @@ class DatabaseSeeder extends Seeder
             CommentsTableSeeder::class,
             QuestionTagCategoryTableSeeder::class,
         ]);
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
 
