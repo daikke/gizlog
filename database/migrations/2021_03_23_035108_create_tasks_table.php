@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagCategoriesTable extends Migration
+class CreateTasksTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -13,9 +13,10 @@ class CreateTagCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_categories', function(Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ class CreateTagCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tag_categories');
+        Schema::dropIfExists('tasks');
     }
-
 }
-
