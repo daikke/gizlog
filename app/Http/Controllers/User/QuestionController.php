@@ -98,7 +98,6 @@ class QuestionController extends Controller
     public function create(): View
     {
         $tagCategories = TagCategory::pluck('name', 'id');
-        $tagCategories->prepend('Select category', '');
         return view('user.question.create', compact('tagCategories'));
     }
 
@@ -123,7 +122,8 @@ class QuestionController extends Controller
      */
     public function update(int $id, Request $request): RedirectResponse
     {
-        $this->question->find($id)->fill($request->all())->save();
+        $inputs = $request->all();
+        $this->question->updateWithTagCategories($id, $inputs);
         return redirect()->route('question.mypage');
     }
 
@@ -137,7 +137,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $this->question->user_id = Auth::id();
-        $this->question->fill($inputs)->save();
+        $this->question->registerWithTagCategories($inputs);
         return redirect()->route('question.mypage');
     }
 
