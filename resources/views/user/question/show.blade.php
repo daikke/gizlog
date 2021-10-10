@@ -6,7 +6,7 @@
   <div class="panel panel-success">
     <div class="panel-heading">
       <img src="" class="avatar-img">
-      <p>{{ $question->user->name }}さんの質問&nbsp;&nbsp;({{ $question->tagCategory->name }})</p>
+      <p>{{ $question->user->name }}さんの質問&nbsp;&nbsp;({{ $question->tagCategories->implode('name', ' ') }})</p>
       <p class="question-date">{{ $question->created_at }}</p>
     </div>
     <div class="table-responsive">
