@@ -28,8 +28,11 @@
     @else
       {{ Form::open(['route' => ['question.update', $request->id], 'method' => 'PUT']) }}
     @endif
-      @foreach ($request->only(['tag_category_id', 'title', 'content']) as $key => $input)
+      @foreach ($request->only(['title', 'content']) as $key => $input)
         <input name="{{ $key }}" type="hidden" value="{{ $input }}">
+      @endforeach
+      @foreach ($request->tag_category_ids as $id)
+        <input name="tag_category_ids[]" type="hidden" value="{{ $id }}">
       @endforeach
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}

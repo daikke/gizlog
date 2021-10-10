@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -43,7 +46,6 @@ class Question extends Model
     protected $fillable = [
         'content',
         'title',
-        'tag_category_id',
     ];
 
     /**
@@ -68,11 +70,11 @@ class Question extends Model
     /**
      * tag_categoriesテーブルリレーション
      *
-     * @return BelongsTo
+     * @return belongsToMany
      */
-    public function tagCategory(): BelongsTo
+    public function tagCategories(): BelongsToMany
     {
-        return $this->belongsTo(TagCategory::class);
+        return $this->belongsToMany(TagCategory::class);
     }
 
     /**
@@ -121,7 +123,9 @@ class Question extends Model
         return $this
             ->when(!empty($params['tag_category_id']),
                 function($query) use ($params) {
-                    $query->where('tag_category_id', $params['tag_category_id']);
+                    $query
+                        ->join('question_tag_category', 'questions.id', 'question_tag_category.question_id')
+                        ->where('question_tag_category.tag_category_id', $params['tag_category_id']);
                 }
             )
             ->when(isset($params['search_word']) && $params['search_word'] !== '',
@@ -131,5 +135,34 @@ class Question extends Model
             )
             ->orderBy($this->order, $this->orderBy)
             ->paginate();
+    }
+
+    /**
+     * 作成処理
+     *
+     * @param array $inputs
+     * @return void
+     */
+    public function registerWithTagCategories(array $inputs): void
+    {
+        DB::transaction(function () use ($inputs) {
+            $this->fill($inputs)->save();
+            $this->tagCategories()->sync($inputs['tag_category_ids']);
+        });
+    }
+
+    /**
+     * 更新処理
+     *
+     * @param integer $id
+     * @param array $inputs
+     * @return void
+     */
+    public function updateWithTagCategories(int $id, array $inputs): void
+    {
+        DB::transaction(function () use ($id, $inputs) {
+            $this->find($id)->fill($inputs)->save();
+            $this->find($id)->tagCategories()->sync($inputs['tag_category_ids']);
+        });
     }
 }

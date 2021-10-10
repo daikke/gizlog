@@ -6,12 +6,7 @@
 <div class="main-wrap">
   <div class="container">
     {{ Form::open(['route' => ['question.confirm', $question->id], 'method' => 'POST']) }}
-      <div class="form-group  @if($errors->has('tag_category_id')) has-error @endif">
-        {!! Form::select('tag_category_id', $tagCategories, $question->tag_category_id, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
-        @foreach ($errors->get('tag_category_id') as $error)
-          <span class="help-block">{{ $error }}</span>
-        @endforeach
-      </div>
+      @include('user.question.components.update_category', compact('tagCategories', 'question', 'errors'))
       <div class="form-group @if($errors->has('title')) has-error @endif">
         {!! Form::text('title', $question->title, ['class' => 'form-control', 'placeholder' => 'title']) !!}
         @foreach ($errors->get('title') as $error)

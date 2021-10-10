@@ -26,7 +26,7 @@ class QuestionsRequest extends FormRequest
         return [
             'content'           => 'required|max:1000',
             'title'             => 'required|max:255',
-            'tag_category_id'   => 'required|exists:tag_categories,id',
+            'tag_category_ids'   => 'required|exists:tag_categories,id',
         ];
     }
 
@@ -42,8 +42,8 @@ class QuestionsRequest extends FormRequest
             'content.max'              => ':max文字以内で入力してください。',
             'title.required'           => '入力必須の項目です。',
             'title.max'                => ':max文字以内で入力してください。',
-            'tag_category_id.required' => '入力必須の項目です。',
-            'tag_category_id.exists'   => 'カテゴリが存在しません。',
+            'tag_category_ids.required' => '入力必須の項目です。',
+            'tag_category_ids.exists'   => 'カテゴリが存在しません。',
         ];
     }
 }
