@@ -4,7 +4,7 @@
 <h2 class="brand-header">ランキング&nbsp;「質問数が多いユーザー」</h2>
 <div class="main-wrap">
   <div class="content-wrapper table-responsive">
-    @include('user.question.components.select_ranking')
+    @include('user.question.components.select_ranking', ['request' => request()])
     <table class="table table-striped">
       <thead>
         <tr class="rows">
