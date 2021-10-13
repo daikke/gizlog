@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use SumUserCommentsCountsSeeder;
+use SummaryUserCommentsCountsRankingsSeeder;
 use SumUserQuestionsCountsSeeder;
 use SumCategoryQuestionsCountsSeeder;
 
@@ -40,7 +40,7 @@ class MakeSummary extends Command
      */
     public function handle()
     {
-        app()->make(SumUserCommentsCountsSeeder::class)->run();
+        app()->make(SummaryUserCommentsCountsRankingsSeeder::class)->run();
         app()->make(SumUserQuestionsCountsSeeder::class)->run();
         app()->make(SumCategoryQuestionsCountsSeeder::class)->run();
     }
