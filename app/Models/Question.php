@@ -224,4 +224,17 @@ class Question extends Model
             ->orderBy('rank')
             ->paginate($this->rankingPerPage);
     }
+
+    /**
+     * タグカテゴリーごとの質問数ランキングをサマリーから取得
+     *
+     * @return LengthAwarePaginator
+     */
+    public function fetchTagCategoryQuestionsCountsSummary(): LengthAwarePaginator
+    {
+        return DB::table('summary_tag_category_questions_counts_rankings')
+            ->join('tag_categories', 'summary_tag_category_questions_counts_rankings.tag_category_id', '=', 'tag_categories.id')
+            ->orderBy('rank')
+            ->paginate($this->rankingPerPage);
+    }
 }

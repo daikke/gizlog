@@ -198,7 +198,8 @@ class QuestionController extends Controller
      */
     public function tagCategoryRanking(): View
     {
-        return view('user.question.ranking.tag');
+        $rankings = $this->question->fetchTagCategoryQuestionsCountsSummary();
+        return view('user.question.ranking.tag', compact('rankings'));
     }
 
     /**
