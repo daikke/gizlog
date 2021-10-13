@@ -208,6 +208,7 @@ class QuestionController extends Controller
      */
     public function commentUserRanking(): View
     {
-        return view('user.question.ranking.comment');
+        $rankings = $this->comment->fetchUserCommentsCountsSummary();
+        return view('user.question.ranking.comment', compact('rankings'));
     }
 }
