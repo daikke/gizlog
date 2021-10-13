@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -164,5 +165,24 @@ class Question extends Model
             $this->find($id)->fill($inputs)->save();
             $this->find($id)->tagCategories()->sync($inputs['tag_category_ids']);
         });
+    }
+
+    /**
+     * ユーザーごとの質問数ランキング取得
+     *
+     * @return Collection
+     */
+    public function fetchUserQuestionsCountsRankings(): Collection
+    {
+        $selectColumns = [
+            'user_id',
+            'COUNT(*) AS questions_count',
+        ];
+
+        return $this
+            ->select(DB::raw(implode(',', $selectColumns)))
+            ->groupBy('user_id')
+            ->orderByDesc('questions_count')
+            ->get();
     }
 }
