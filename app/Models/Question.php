@@ -185,4 +185,24 @@ class Question extends Model
             ->orderByDesc('questions_count')
             ->get();
     }
+
+    /**
+     * タグカテゴリーごとの質問数ランキング取得
+     *
+     * @return Collection
+     */
+    public function fetchTagCategoryQuestionsCountsRankings(): Collection
+    {
+        $selectColumns = [
+            'tag_category_id',
+            'COUNT(*) AS questions_count',
+        ];
+
+        return $this
+            ->select(DB::raw(implode(',', $selectColumns)))
+            ->join('question_tag_category', 'questions.id', '=', 'question_tag_category.question_id')
+            ->groupBy('tag_category_id')
+            ->orderByDesc('questions_count')
+            ->get();
+    }
 }
