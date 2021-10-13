@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SumCategoryQuestionsCountsSeeder extends Seeder
+class SummaryTagCategoryQuestionsCountsRankings extends Seeder
 {
     /**
      * Run the database seeds.
