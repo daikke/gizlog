@@ -8,7 +8,7 @@ class SummaryUserCommentsCountsRankingsSeeder extends Seeder
     /**
      * Run the database seeds.
      *
-     * @return void
+     * @return voida
      */
     public function run()
     {
