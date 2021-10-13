@@ -187,7 +187,8 @@ class QuestionController extends Controller
      */
     public function userRanking(): View
     {
-        return view('user.question.ranking.question');
+        $rankings = $this->question->fetchUserQuestionsCountsSummary();
+        return view('user.question.ranking.question', compact('rankings'));
     }
 
     /**

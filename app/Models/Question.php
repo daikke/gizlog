@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -38,6 +37,13 @@ class Question extends Model
      * @var integer
      */
     protected $perPage = 10;
+
+    /**
+     * ランキングページネーション件数
+     *
+     * @var integer
+     */
+    protected $rankingPerPage = 20;
 
     /**
      * 複数代入ホワイトリスト
@@ -204,5 +210,18 @@ class Question extends Model
             ->groupBy('tag_category_id')
             ->orderByDesc('questions_count')
             ->get();
+    }
+
+    /**
+     * ユーザーごとの質問数ランキングをサマリーから取得
+     *
+     * @return LengthAwarePaginator
+     */
+    public function fetchUserQuestionsCountsSummary(): LengthAwarePaginator
+    {
+        return DB::table('summary_user_questions_counts_rankings')
+            ->join('users', 'summary_user_questions_counts_rankings.user_id', '=', 'users.id')
+            ->orderBy('rank')
+            ->paginate($this->rankingPerPage);
     }
 }
