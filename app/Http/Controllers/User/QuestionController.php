@@ -179,4 +179,34 @@ class QuestionController extends Controller
         $this->question->find($id)->delete();
         return redirect()->route('question.mypage');
     }
+
+    /**
+     * 質問数の多いユーザーランキング
+     *
+     * @return View
+     */
+    public function userRanking(): View
+    {
+        return view('user.question.ranking.question');
+    }
+
+    /**
+     * 質問数の多いタグカテゴリーランキング
+     *
+     * @return View
+     */
+    public function tagCategoryRanking(): View
+    {
+        return view('user.question.ranking.tag');
+    }
+
+    /**
+     * コメント数の多いユーザーランキング
+     *
+     * @return View
+     */
+    public function commentUserRanking(): View
+    {
+        return view('user.question.ranking.comment');
+    }
 }
