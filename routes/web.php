@@ -42,7 +42,6 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
             Route::get('/create', 'QuestionController@create')->name('create');
             Route::post('/', 'QuestionController@store')->name('store');
             Route::get('/mypage', 'QuestionController@mypage')->name('mypage');
-            Route::get('/ranking', 'QuestionController@userRanking')->name('ranking.user_questions');
             Route::get('/ranking/user', 'QuestionController@userRanking')->name('ranking.user_questions');
             Route::get('/ranking/tag-category', 'QuestionController@tagCategoryRanking')->name('ranking.category_questions');
             Route::get('/comment/ranking/user', 'QuestionController@commentUserRanking')->name('ranking.user_comments');
