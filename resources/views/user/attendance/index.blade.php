@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="button-holder">
-      <a class="button start-btn" id="register-attendance" href=#openModal>出社時間登録</a>
+    <a class="button start-btn" id="register-attendance" href=#openModal>出社時間登録</a>
   </div>
   <ul class="button-wrap">
     <li>
@@ -34,7 +34,6 @@
     <div class="register-btn-wrap">
       <form>
         <input id="date-time-target" name="start_time" type="hidden" value="2019-07-03 12:38:41">
-        <input name="user_id" type="hidden" value="4">
         <input name="date" type="hidden" value="2019-07-03">
         <a href="#close" class="cancel-btn">Cancel</a>
         <input class="yes-btn" type="submit" value="Yes">
