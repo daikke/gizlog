@@ -21,7 +21,7 @@ class MakeSummary extends Command
      *
      * @var string
      */
-    protected $description = 'Make Some Summary Tables;';
+    protected $description = '各種サマリーテーブルへの集計データインサート';
 
     /**
      * Create a new command instance.
