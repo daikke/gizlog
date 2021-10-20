@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use SummaryUserCommentsCountsRankingsSeeder;
-use SummaryUserQuestionsCountsRankings;
-use SummaryTagCategoryQuestionsCountsRankings;
+use SummaryUserQuestionsCountsRankingsSeeder;
+use SummaryTagCategoryQuestionsCountsRankingsSeeder;
 
 class MakeSummary extends Command
 {
@@ -41,7 +41,7 @@ class MakeSummary extends Command
     public function handle()
     {
         app()->make(SummaryUserCommentsCountsRankingsSeeder::class)->run();
-        app()->make(SummaryUserQuestionsCountsRankings::class)->run();
-        app()->make(SummaryTagCategoryQuestionsCountsRankings::class)->run();
+        app()->make(SummaryUserQuestionsCountsRankingsSeeder::class)->run();
+        app()->make(SummaryTagCategoryQuestionsCountsRankingsSeeder::class)->run();
     }
 }
