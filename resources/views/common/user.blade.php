@@ -91,6 +91,6 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="{{ asset('js/custom.js') }}"></script>
-  <script src="{{ asset('js/ranking.js') }}"></script>
+  @stack('scripts')
 </body>
 </html>

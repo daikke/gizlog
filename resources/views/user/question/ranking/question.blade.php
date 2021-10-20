@@ -32,3 +32,7 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/ranking.js') }}"></script>
+@endpush
