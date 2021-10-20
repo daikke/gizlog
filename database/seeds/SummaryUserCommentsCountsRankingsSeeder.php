@@ -15,7 +15,7 @@ class SummaryUserCommentsCountsRankingsSeeder extends Seeder
         $comment = app()->make(Comment::class);
         $rankings = $comment->fetchUserCommentsCountsRankings();
         $rankings->map(function ($row, $key) {
-            return $row['rank'] = $key + 1;
+            $row->rank = $key + 1;
         });
 
         DB::table('summary_user_comments_counts_rankings')->truncate();

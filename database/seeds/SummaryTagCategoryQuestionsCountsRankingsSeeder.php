@@ -15,7 +15,7 @@ class SummaryTagCategoryQuestionsCountsRankingsSeeder extends Seeder
         $question = app()->make(Question::class);
         $rankings = $question->fetchTagCategoryQuestionsCountsRankings();
         $rankings->map(function ($row, $key) {
-            return $row['rank'] = $key + 1;
+            $row->rank = $key + 1;
         });
 
         DB::table('summary_tag_category_questions_counts_rankings')->truncate();

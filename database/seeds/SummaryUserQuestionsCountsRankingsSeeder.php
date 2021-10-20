@@ -15,7 +15,7 @@ class SummaryUserQuestionsCountsRankingsSeeder extends Seeder
         $question = app()->make(Question::class);
         $rankings = $question->fetchUserQuestionsCountsRankings();
         $rankings->map(function ($row, $key) {
-            return $row['rank'] = $key + 1;
+            $row->rank = $key + 1;
         });
 
         DB::table('summary_user_questions_counts_rankings')->truncate();
