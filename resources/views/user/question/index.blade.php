@@ -13,7 +13,7 @@
       <a class="btn" href="{{ route('question.mypage') }}">
         <i class="fa fa-user" aria-hidden="true"></i>
       </a>
-      <a class="btn" href="">
+      <a class="btn" href="{{ route('question.ranking.user_questions') }}">
         <i class="fa fa-trophy" aria-hidden="true"></i>
       </a>
     </div>
