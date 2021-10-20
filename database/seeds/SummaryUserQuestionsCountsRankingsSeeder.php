@@ -3,7 +3,7 @@
 use App\Models\Question;
 use Illuminate\Database\Seeder;
 
-class SummaryTagCategoryQuestionsCountsRankings extends Seeder
+class SummaryUserQuestionsCountsRankingsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,12 +13,12 @@ class SummaryTagCategoryQuestionsCountsRankings extends Seeder
     public function run()
     {
         $question = app()->make(Question::class);
-        $rankings = $question->fetchTagCategoryQuestionsCountsRankings();
+        $rankings = $question->fetchUserQuestionsCountsRankings();
         $rankings->map(function ($row, $key) {
             return $row['rank'] = $key + 1;
         });
 
-        DB::table('summary_tag_category_questions_counts_rankings')->truncate();
-        DB::table('summary_tag_category_questions_counts_rankings')->insert($rankings->toArray());
+        DB::table('summary_user_questions_counts_rankings')->truncate();
+        DB::table('summary_user_questions_counts_rankings')->insert($rankings->toArray());
     }
 }
