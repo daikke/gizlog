@@ -15,7 +15,7 @@ class SummaryUserCommentsCountsRankings extends Migration
     {
         Schema::create('summary_user_comments_counts_rankings', function (Blueprint $table) {
             $table->integer('user_id')->unsigned()->primary();
-            $table->integer('rank')->unsigned();
+            $table->integer('rank')->unsigned()->index();
             $table->integer('comments_count')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users');

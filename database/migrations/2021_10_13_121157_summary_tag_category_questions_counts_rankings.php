@@ -15,7 +15,7 @@ class SummaryTagCategoryQuestionsCountsRankings extends Migration
     {
         Schema::create('summary_tag_category_questions_counts_rankings', function (Blueprint $table) {
             $table->integer('tag_category_id')->unsigned();
-            $table->integer('rank')->unsigned();
+            $table->integer('rank')->unsigned()->index();
             $table->integer('questions_count')->unsigned();
 
             $table->primary('tag_category_id', 'category_rankings_primary');
