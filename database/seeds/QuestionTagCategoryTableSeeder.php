@@ -15,7 +15,7 @@ class QuestionTagCategoryTableSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('question_tag_category')->truncate();
-        $questions = factory(Question::class, 10)->create();
+        $questions = factory(Question::class, 5000)->create();
         $this->call(TagCategoriesSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
