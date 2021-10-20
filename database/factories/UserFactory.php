@@ -17,8 +17,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'slack_user_id' => 'CCCCCCCCC',
-        'avatar'        => null,
-        'created_at'    => Carbon::create(2017, 7, 16),
+        'slack_user_id' => $faker->asciify('**********'),
+        'avatar' => null,
     ];
 });
