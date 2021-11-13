@@ -20,6 +20,7 @@ class CreateAttendancesTable extends Migration
             $table->boolean('absence_flg');
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
+            $table->text('absence_reason')->nullable();
 
             $table->unique(['user_id', 'registration_date']);
             $table->foreign('user_id')->references('id')->on('users');
