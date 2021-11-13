@@ -21,7 +21,7 @@ class CreateAttendancesTable extends Migration
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
 
-            $table->unique('user_id', 'registration_date');
+            $table->unique(['user_id', 'registration_date']);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
