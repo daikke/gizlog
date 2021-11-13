@@ -11,7 +11,7 @@ class AttendanceController extends Controller
     /**
      * @return View
      */
-    public function create(): View
+    public function showCreatePage(): View
     {
         return view('user.attendance.index');
     }
