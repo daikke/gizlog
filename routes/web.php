@@ -25,7 +25,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::group(['prefix' => 'attendance', 'as' => 'attendance.'], function () {
-        Route::get('/', 'AttendanceController@showCreatePage')->name('create');
+        Route::get('/', 'AttendanceController@showCreate')->name('create');
         Route::get('mypage', 'AttendanceController@showMyPage')->name('myPage');
     });
 });
