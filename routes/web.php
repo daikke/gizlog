@@ -26,7 +26,14 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::group(['prefix' => 'attendance', 'as' => 'attendance.'], function () {
         Route::get('/', 'AttendanceController@showCreate')->name('create');
+        Route::put('/', 'AttendanceController@updateTodayAttendance')->name('updateTodayAttendance');
+        Route::post('/', 'AttendanceController@store')->name('store');
         Route::get('mypage', 'AttendanceController@showMyPage')->name('myPage');
+        Route::get('absence', 'AttendanceController@showCreateAbsence')->name('absence');
+    });
+
+    Route::group(['prefix' => 'modify', 'as' => 'modify.'], function () {
+        Route::get('/', 'ModifyController@showCreate')->name('create');
     });
 });
 

@@ -16,9 +16,10 @@ $(function(){
 
   // 出社退社時間登録用
   $('#register-attendance').on('click', function(){
-    var date_time = moment().format("YYYY-MM-DD HH:mm:ss");
+    var date = moment().format("YYYY-MM-DD");
     var time = moment().format("HH:mm");
-    $('#date-time-target').val(date_time);
+    $('#date-target').val(date);
+    $('#time-target').val(time);
     if($(this).hasClass("start-btn")){
       $('.register-text-wrap').html('<p>' + time + ' で出社時間を登録しますか？');
     }else{
