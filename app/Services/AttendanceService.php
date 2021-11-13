@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\Attendance;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class AttendanceService
 {
@@ -34,15 +35,15 @@ class AttendanceService
             return self::UNREGISTERED;
         }
 
-        if ($this->isAbsence($attendance)) {
+        if ($attendance->isAbsence($attendance)) {
             return self::ABSENCE;
         }
 
-        if ($this->isAttendance($attendance)) {
+        if ($attendance->isAttendance($attendance)) {
             return self::ATTENDANCE;
         }
 
-        if ($this->isLeft($attendance)) {
+        if ($attendance->isLeft($attendance)) {
             return self::LEFT;
         }
     }
@@ -87,39 +88,39 @@ class AttendanceService
     }
 
     /**
+     * @param integer $userId
+     * @return Collection
+     */
+    public function fetchAttendancesByUserId(int $userId): Collection
+    {
+        return $this->attendance->fetchAttendancesByUserId($userId);
+    }
+
+    /**
+     * @param integer $userId
+     * @return integer
+     */
+    public function countAttendancesByUserId(int $userId): int
+    {
+        return $this->attendance->countAttendancesByUserId($userId);
+    }
+
+    /**
+     * @param integer $userId
+     * @return string
+     */
+    public function aggregateAttendancesTimeByUserId(int $userId): string
+    {
+        return $this->attendance->aggregateAttendancesTimeByUserId($userId);
+    }
+
+    /**
      * @param Attendance|null $attendance
      * @return boolean
      */
     private function isUnRegistered(?Attendance $attendance): bool
     {
         return is_null($attendance);
-    }
-
-    /**
-     * @param Attendance $attendance
-     * @return boolean
-     */
-    private function isAbsence(Attendance $attendance): bool
-    {
-        return $attendance->absence_flg === 1;
-    }
-
-    /**
-     * @param Attendance $attendance
-     * @return boolean
-     */
-    private function isAttendance(Attendance $attendance): bool
-    {
-        return !is_null($attendance->start_time) && is_null($attendance->end_time);
-    }
-
-    /**
-     * @param Attendance $attendance
-     * @return boolean
-     */
-    private function isLeft(Attendance $attendance): bool
-    {
-        return !is_null($attendance->end_time);
     }
 
     /**

@@ -34,7 +34,10 @@ class AttendanceController extends Controller
      */
     public function showMyPage(): View
     {
-        return view('user.attendance.mypage');
+        $attendances = $this->attendanceService->fetchAttendancesByUserId(Auth::id());
+        $attendancesCount = $this->attendanceService->countAttendancesByUserId(Auth::id());
+        $attendancesTime = $this->attendanceService->aggregateAttendancesTimeByUserId(Auth::id());
+        return view('user.attendance.mypage', compact('attendances', 'attendancesCount', 'attendancesTime'));
     }
 
     /**
@@ -80,12 +83,6 @@ class AttendanceController extends Controller
     public function storeAbsence(AbsenceRequest $request): RedirectResponse
     {
         $this->attendanceService->storeAbsence($request->all(), Auth::id());
-        return redirect()->route('attendance.create');
-    }
-
-    public function storeModifyRequest(): RedirectResponse
-    {
-        $this->modifyRequest->store();
         return redirect()->route('attendance.create');
     }
 }
