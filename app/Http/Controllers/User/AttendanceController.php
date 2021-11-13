@@ -49,14 +49,6 @@ class AttendanceController extends Controller
     }
 
     /**
-     * @return View
-     */
-    public function showCreateModifyRequest(): View
-    {
-        return view('user.attendance.modify');
-    }
-
-    /**
      * @param Request $request
      * @return RedirectResponse
      */
