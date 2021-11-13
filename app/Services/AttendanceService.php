@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Attendance;
+use Carbon\Carbon;
 
 class AttendanceService
 {
@@ -70,6 +71,22 @@ class AttendanceService
     }
 
     /**
+     * @param array $input
+     * @param integer $userId
+     * @return void
+     */
+    public function storeAbsence(array $input, int $userId): void
+    {
+        $attendance = $this->attendance->fetchTodayAttendanceByUserId($userId);
+        $input['registration_date'] = Carbon::today()->format('Y-m-d');
+        if ($this->isUnRegistered($attendance)) {
+            $this->registerAbsence($input, $userId);
+        } else {
+            $this->updateAbsence($attendance, $input);
+        }
+    }
+
+    /**
      * @param Attendance|null $attendance
      * @return boolean
      */
@@ -103,5 +120,28 @@ class AttendanceService
     private function isLeft(Attendance $attendance): bool
     {
         return !is_null($attendance->end_time);
+    }
+
+    /**
+     * @param array $input
+     * @param integer $userId
+     * @return void
+     */
+    private function registerAbsence(array $input, int $userId): void
+    {
+        $this->attendance->user_id = $userId;
+        $this->attendance->absence_flg = true;
+        $this->attendance->fill($input)->save();
+    }
+
+    /**
+     * @param Attendance $attendance
+     * @param array $input
+     * @return void
+     */
+    private function updateAbsence(Attendance $attendance, array $input): void
+    {
+        $attendance->absence_flg = true;
+        $attendance->fill($input)->save();
     }
 }

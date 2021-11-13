@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\AbsenceRequest;
 use App\Services\AttendanceService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,9 +73,13 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.create');
     }
 
-    public function storeAbsence(): RedirectResponse
+    /**
+     * @param AbsenceRequest $request
+     * @return RedirectResponse
+     */
+    public function storeAbsence(AbsenceRequest $request): RedirectResponse
     {
-        $this->attendance->store();
+        $this->attendanceService->storeAbsence($request->all(), Auth::id());
         return redirect()->route('attendance.create');
     }
 

@@ -30,6 +30,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         Route::post('/', 'AttendanceController@store')->name('store');
         Route::get('mypage', 'AttendanceController@showMyPage')->name('myPage');
         Route::get('absence', 'AttendanceController@showCreateAbsence')->name('absence');
+        Route::post('absence', 'AttendanceController@storeAbsence')->name('absence.store');
     });
 
     Route::group(['prefix' => 'modify', 'as' => 'modify.'], function () {

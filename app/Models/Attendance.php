@@ -15,6 +15,7 @@ class Attendance extends Model
         'registration_date',
         'start_time',
         'end_time',
+        'absence_reason',
     ];
 
     /**
