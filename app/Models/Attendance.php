@@ -11,7 +11,6 @@ class Attendance extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'user_id',
         'registration_date',
         'start_time',
         'end_time',
