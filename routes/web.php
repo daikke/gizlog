@@ -34,7 +34,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     });
 
     Route::group(['prefix' => 'modify', 'as' => 'modify.'], function () {
-        Route::get('/', 'ModifyController@showCreate')->name('create');
+        Route::get('/', 'ModifyRequestController@showCreate')->name('create');
+        Route::post('/', 'ModifyRequestController@store')->name('store');
     });
 });
 
