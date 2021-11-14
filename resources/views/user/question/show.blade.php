@@ -24,19 +24,21 @@
       </table>
     </div>
   </div>
-    <div class="comment-list">
-        <div class="comment-wrap">
+  <div class="comment-list">
+      <div class="comment-wrap">
+
+        <div class="inline-flex">
           <div class="comment-title">
             <img src="" class="avatar-img">
             <p></p>
             <p class="comment-date"></p>
           </div>
-          <div class="comment-body"></div>
         </div>
-    </div>
+        <div class="comment-body"></div>
+      </div>
+  </div>
   <div class="comment-box">
     <form>
-      <input name="user_id" type="hidden" value="">
       <input name="question_id" type="hidden" value="">
       <div class="comment-title">
         <img src="" class="avatar-img"><p>コメントを投稿する</p>

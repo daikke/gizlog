@@ -13,29 +13,55 @@
     </div>
   </div>
   <div class="button-holder">
-      <a class="button start-btn" id="register-attendance" href=#openModal>出社時間登録</a>
+    @switch($phase)
+      @case(App\Services\AttendanceService::UNREGISTERED)
+        <a class="button start-btn" id="register-attendance" href=#openModal>出社時間登録</a>
+      @break
+      @case(App\Services\AttendanceService::ATTENDANCE)
+        <a class="button end-btn" id="register-attendance" href=#openModal>退社時間登録</a>
+      @break
+      @case(App\Services\AttendanceService::LEFT)
+        <a class="button disabled" id="register-attendance" href=#openModal>退社済み</a>
+      @break
+      @case(App\Services\AttendanceService::ABSENCE)
+        <a class="button disabled" id="register-attendance" href=#openModal>欠勤</a>
+      @break
+      @default
+        深刻なエラーが発生しました。
+    @endswitch
   </div>
   <ul class="button-wrap">
     <li>
-      <a class="at-btn absence" href="/attendance/absence">欠席登録</a>
+      <a class="at-btn absence" href="{{ route('attendance.absence') }}">欠席登録</a>
     </li>
     <li>
-      <a class="at-btn modify" href="/attendance/modify">修正申請</a>
+      <a class="at-btn modify" href="{{ route('modify.create') }}">修正申請</a>
     </li>
     <li>
-      <a class="at-btn my-list" href="/attendance/mypage">マイページ</a>
+      <a class="at-btn my-list" href="{{ route('attendance.myPage') }}">マイページ</a>
     </li>
   </ul>
 </div>
 
 <div id="openModal" class="modalDialog">
   <div>
-    <div class="register-text-wrap"><p>12:38 で出社時間を登録しますか？</p></div>
+    <div class="register-text-wrap"><p></p></div>
     <div class="register-btn-wrap">
-      <form>
-        <input id="date-time-target" name="start_time" type="hidden" value="2019-07-03 12:38:41">
-        <input name="user_id" type="hidden" value="4">
-        <input name="date" type="hidden" value="2019-07-03">
+      @switch($phase)
+        @case(App\Services\AttendanceService::UNREGISTERED)
+          <form action="{{ route('attendance.store') }}" method="post">
+            <input id="time-target" name="start_time" type="hidden" value="">
+        @break
+        @case(App\Services\AttendanceService::ATTENDANCE)
+          <form action="{{ route('attendance.updateTodayAttendance') }}" method="post">
+            @method('PUT')
+            <input id="time-target" name="end_time" type="hidden" value="">
+        @break
+        @default
+          深刻なエラーが発生しました。
+        @endswitch
+        @csrf
+        <input id="date-target" name="registration_date" type="hidden" value="">
         <a href="#close" class="cancel-btn">Cancel</a>
         <input class="yes-btn" type="submit" value="Yes">
       </form>

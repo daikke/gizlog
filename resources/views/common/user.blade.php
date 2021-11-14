@@ -47,6 +47,9 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
+                <a href="">プロフィール編集</a>
+              </li>
+              <li>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
@@ -69,7 +72,7 @@
       <div class="navbar-collapse collapse">
         <ul class="nav-left-list">
           <li>
-            <a href=""><i class="fa fa-briefcase">勤怠</i></a>
+            <a href="{{ route('attendance.create') }}"><i class="fa fa-briefcase">勤怠</i></a>
           </li>
           <li>
             <a href=""><i class="fa fa-pencil-square-o">日報</i></a>

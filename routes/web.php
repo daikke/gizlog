@@ -23,6 +23,20 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('slack/login', 'Auth\AuthenticateController@callSlackApi');
     Route::get('callback', 'Auth\AuthenticateController@loginBySlackUserInfo');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+    Route::group(['prefix' => 'attendance', 'as' => 'attendance.'], function () {
+        Route::get('/', 'AttendanceController@showCreate')->name('create');
+        Route::put('/', 'AttendanceController@updateTodayAttendance')->name('updateTodayAttendance');
+        Route::post('/', 'AttendanceController@store')->name('store');
+        Route::get('mypage', 'AttendanceController@showMyPage')->name('myPage');
+        Route::get('absence', 'AttendanceController@showCreateAbsence')->name('absence');
+        Route::post('absence', 'AttendanceController@storeAbsence')->name('absence.store');
+    });
+
+    Route::group(['prefix' => 'modify', 'as' => 'modify.'], function () {
+        Route::get('/', 'ModifyRequestController@showCreate')->name('create');
+        Route::post('/', 'ModifyRequestController@store')->name('store');
+    });
 });
 
 // 管理者側画面

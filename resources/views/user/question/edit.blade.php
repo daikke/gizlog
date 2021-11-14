@@ -7,9 +7,9 @@
   <div class="container">
     <form>
       <div class="form-group">
-        <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
+        <select name='tag_category_id' class="form-control selectpicker form-size-small">
           <option value=""></option>
-            <option value= ""></option>
+            <option value=""></option>
         </select>
         <span class="help-block"></span>
       </div>
