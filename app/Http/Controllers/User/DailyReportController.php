@@ -42,7 +42,7 @@ class DailyReportController extends Controller
     public function index(Request $request): View
     {
         $params = $request->all();
-        $reports = $this->dailyReport->fetchByUserId(Auth::id(), $params);
+		$reports = $this->dailyReport->fetchByUserId(Auth::id(), $params);
         return view('user.daily_report.index', compact('reports'));
     }
 

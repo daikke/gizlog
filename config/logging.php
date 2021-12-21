@@ -1,6 +1,7 @@
 <?php
 
 use Monolog\Handler\StreamHandler;
+use App\Logging\CsvLogFormatter;
 
 return [
 
@@ -76,6 +77,13 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'csv_upload' => [
+            'driver' => 'custom',
+            'via' => CsvLogFormatter::class,
+            'path' => storage_path('logs/csv_upload.log'),
+            'level' => 'info',
+        ]
     ],
 
 ];

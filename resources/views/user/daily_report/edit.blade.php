@@ -7,6 +7,7 @@
     {!! Form::open(['route' => ['report.update', $report->id], 'method' => 'PUT']) !!}
       <div class="form-group form-size-small @if ($errors->has('reporting_time')) has-error @endif">
         {!! Form::date('reporting_time', $report->reporting_time, ['class' => 'form-control']) !!}
+        <input type="date" class="form-control"  value="2021-08-10">
         @foreach ($errors->get('reporting_time') as $error)
           <span class="help-block">
             {{ $error }}
