@@ -61,7 +61,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-
+    Route::group(['prefix' => 'book', 'as' => 'book.', 'middleware' => 'auth:admin'], function() {
+        Route::get('/', 'BookController@index')->name('index');
+        Route::post('/csv-bulk-store', 'BookController@csvBulkStore')->name('csv-bulk-store');
+    });
     /*
      * ----------------------------------------------------------
      * 静的なページが簡単に確認できるように ClosureでViewを返しています。処理に応じて編集してください。

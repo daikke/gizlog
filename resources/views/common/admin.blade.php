@@ -78,7 +78,7 @@
             <a href="/admin/question"><i class="fa fa-comments-o">質問掲示板</i></a>
           </li>
           <li>
-            <a href=""><i class="fa fa-book">書籍</i></a>
+            <a href="{{ route('admin.book.index') }}"><i class="fa fa-book">書籍</i></a>
           </li>
           <li>
             <a href="/admin/user"><i class="fa fa-user">ユーザー</i></a>

@@ -4,13 +4,20 @@
 <h2 class="brand-header">書籍購入情報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper">
-    <form>
-      <div class="form-group has-error">
-        <input type="file" class="form-control">
-        <span class="help-block"></span>
+    {!! Form::open(['route' => 'admin.book.csv-bulk-store', 'files' => true]) !!}
+      <div class="form-group @if ($errors->has('csv')) has-error @endif">
+        {!! Form::file('csv', ['class' => 'form-control']) !!}
+        @foreach ($errors->get('csv') as $error)
+          <span class="help-block">
+            {{ $error }}
+          </span>
+        @endforeach
+        @if(Session::has('message'))
+          <span class="help-block">{{ session('message') }}</span>
+        @endif
         <button type="submit" class="btn btn-icon"><i class="fa fa-file"></i></button>
       </div>
-    </form>
+    {!! Form::close() !!}
   </div>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
@@ -25,16 +32,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row">
-          <td class="col-xs-1"><img src="" alt="" class="avatar-img"></td>
-          <td class="col-xs-4"></td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-2"></td>
-          <td class="col-xs-1"></td>
-          <td class="col-xs-2"></td>
-        </tr>
+        @foreach ($books as $book)
+          <tr class="row">
+            <td class="col-xs-1"><img src="{{ $book->user->avatar }}" class="avatar-img"></td>
+            <td class="col-xs-4">{{ $book->title }}</td>
+            <td class="col-xs-2">{{ $book->author }}</td>
+            <td class="col-xs-2">{{ $book->publisher }}</td>
+            <td class="col-xs-1">{{ $book->price }}</td>
+            <td class="col-xs-2">{{ $book->purchase_date }}</td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
+    {{ $books->links() }}
   </div>
 </div>
 
